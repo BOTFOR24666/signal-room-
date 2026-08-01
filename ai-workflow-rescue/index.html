@@ -899,6 +899,152 @@
       .mission-node { padding: 1.15rem; grid-template-columns: 48px 1fr; column-gap: .75rem; }
       .mission-node strong { font-size: 1.55rem; }
     }
+
+    /* Six-zone course system */
+    #zone-screen {
+      --zone-accent: #b8e8ed;
+      --zone-soft: rgba(184,232,237,.08);
+      min-height: 100svh;
+      background:
+        radial-gradient(circle at 77% 19%, var(--zone-soft), transparent 31%),
+        linear-gradient(145deg, #070809, #0a0c0d 58%, #070809);
+    }
+    #zone-screen[data-zone="2"] { --zone-accent:#82d7c0; --zone-soft:rgba(130,215,192,.08); }
+    #zone-screen[data-zone="3"] { --zone-accent:#a8d7a2; --zone-soft:rgba(168,215,162,.08); }
+    #zone-screen[data-zone="4"] { --zone-accent:#c8b5e8; --zone-soft:rgba(200,181,232,.09); }
+    #zone-screen[data-zone="5"] { --zone-accent:#e0ad79; --zone-soft:rgba(224,173,121,.09); }
+    #zone-screen[data-zone="6"] { --zone-accent:#e5e2d9; --zone-soft:rgba(229,226,217,.09); }
+    #zone-screen .app-brand::before { background:var(--zone-accent); box-shadow:0 0 12px color-mix(in srgb,var(--zone-accent) 60%,transparent); }
+    #zone-screen .progress-ring { background:conic-gradient(var(--zone-accent) var(--progress,0%),rgba(255,255,255,.07) 0); }
+    #zone-screen .zone-heading .eyebrow { color:var(--zone-accent); }
+
+    .zone-rail {
+      width:min(1120px,calc(100% - 3rem));
+      margin:1rem auto 0;
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:.5rem;
+    }
+    .zone-tab {
+      min-height:58px;
+      padding:.65rem .75rem;
+      border:1px solid rgba(243,240,233,.09);
+      border-radius:12px;
+      background:rgba(12,14,15,.58);
+      color:#7f8585;
+      cursor:pointer;
+      text-align:left;
+      transition:.2s ease;
+    }
+    .zone-tab span { display:block; margin-bottom:.22rem; font:600 .55rem "Vselors Mono",monospace; letter-spacing:.1em; }
+    .zone-tab strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.7rem; font-weight:600; }
+    .zone-tab.active { color:var(--zone-accent); border-color:color-mix(in srgb,var(--zone-accent) 42%,transparent); background:var(--zone-soft); }
+    .zone-tab.complete { color:#d8cdb9; }
+    .zone-tab.locked { opacity:.32; cursor:not-allowed; }
+
+    .course-map .map-deck {
+      min-height:460px;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px),
+        linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+        linear-gradient(120deg,var(--zone-soft),transparent 35%),
+        rgba(12,14,15,.74);
+      background-size:64px 64px,64px 64px,auto,auto;
+    }
+    .course-map .map-deck::before { background:linear-gradient(transparent,color-mix(in srgb,var(--zone-accent) 18%,transparent),rgba(216,193,155,.14),transparent); }
+    .course-map .mission-node { --node-color:var(--zone-accent); }
+    .course-map .mission-node[data-slot="1"] { grid-column:1 / span 7; }
+    .course-map .mission-node[data-slot="2"] { grid-column:8 / span 5; }
+    .course-map .mission-node[data-slot="3"] { grid-column:1 / span 5; }
+    .course-map .mission-node[data-slot="4"] { grid-column:6 / span 7; }
+    .mission-format {
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      margin-top:.8rem;
+      color:color-mix(in srgb,var(--node-color) 78%,#fff 22%);
+      font:500 .54rem "Vselors Mono",monospace;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .mission-format::before { content:""; width:4px; height:4px; border-radius:50%; background:currentColor; }
+    #next-zone-gate { margin:1rem 0 0; }
+
+    .activity-title { margin:0 0 .85rem; color:#9aa1a1; font:500 .58rem "Vselors Mono",monospace; letter-spacing:.12em; text-transform:uppercase; }
+    .activity-note { margin:.75rem 0 0; color:#8f9696; font-size:.74rem; line-height:1.6; }
+    .reveal-board { position:relative; min-height:340px; padding:1rem; border:1px solid rgba(243,240,233,.1); border-radius:20px; background:rgba(8,10,11,.66); overflow:hidden; }
+    .creator-message { padding:1.4rem; border-left:2px solid var(--amber); background:rgba(216,193,155,.05); }
+    .creator-message blockquote { margin:.45rem 0 0; font:600 clamp(1.35rem,3vw,2.35rem)/1.2 "Vselors Serif",serif; color:#eeece6; }
+    .tool-cloud { position:absolute; inset:0; display:grid; grid-template-columns:repeat(3,1fr); gap:.65rem; padding:1rem; background:rgba(8,10,11,.96); transition:.35s ease; }
+    .tool-cloud.cleared { opacity:0; pointer-events:none; transform:scale(.985); }
+    .tool-card { min-height:84px; padding:.8rem; border:1px solid rgba(243,240,233,.13); border-radius:14px; background:rgba(18,21,22,.9); color:#deddd8; cursor:pointer; font:600 .7rem "Vselors Mono",monospace; }
+    .tool-card.removed { opacity:0; transform:scale(.8); pointer-events:none; }
+
+    .choice-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:.8rem; }
+    .choice-card { min-height:120px; padding:1rem; border:1px solid rgba(243,240,233,.11); border-radius:16px; background:rgba(12,14,15,.7); color:#e7e5df; cursor:pointer; text-align:left; transition:.2s ease; }
+    .choice-card:hover { border-color:rgba(184,232,237,.4); transform:translateY(-2px); }
+    .choice-card.correct { border-color:#82d7c0; background:rgba(130,215,192,.07); }
+    .choice-card.wrong { border-color:#d98a81; background:rgba(217,138,129,.05); }
+    .choice-card strong { display:block; margin-bottom:.4rem; font-family:"Vselors Serif",serif; font-size:1.35rem; }
+    .consequence { min-height:62px; margin-top:1rem; padding:.9rem 1rem; border:1px solid rgba(243,240,233,.09); border-radius:14px; color:#9fa6a6; font-size:.76rem; line-height:1.55; }
+
+    .triage-layout { display:grid; grid-template-columns:1.2fr repeat(3,.9fr); gap:.75rem; }
+    .triage-tray,.triage-bay { min-height:250px; padding:.9rem; border:1px solid rgba(243,240,233,.1); border-radius:16px; background:rgba(10,12,13,.6); }
+    .triage-bay { cursor:pointer; }
+    .triage-bay h3,.triage-tray h3 { margin:0 0 .7rem; color:#9ba1a1; font:500 .56rem "Vselors Mono",monospace; letter-spacing:.1em; text-transform:uppercase; }
+    .mini-item { display:block; width:100%; margin:0 0 .55rem; padding:.72rem; border:1px solid rgba(243,240,233,.11); border-radius:10px; background:rgba(22,25,26,.86); color:#e0dfda; cursor:pointer; text-align:left; font-size:.7rem; line-height:1.4; }
+    .mini-item.selected { border-color:var(--ion); background:rgba(184,232,237,.07); }
+    .placed-item { margin:0 0 .5rem; padding:.62rem; border-radius:9px; background:rgba(255,255,255,.04); color:#b8bdbd; font-size:.66rem; line-height:1.4; }
+
+    .inspect-layout { display:grid; grid-template-columns:.9fr 1.1fr; gap:1rem; }
+    .inspect-list,.inspection-panel { padding:1rem; border:1px solid rgba(243,240,233,.1); border-radius:18px; background:rgba(9,11,12,.62); }
+    .inspect-node { display:block; width:100%; margin-bottom:.6rem; padding:.8rem; border:1px solid rgba(243,240,233,.1); border-radius:11px; background:rgba(18,21,22,.8); color:#d9d8d3; cursor:pointer; text-align:left; }
+    .inspect-node.alert { border-color:rgba(217,138,129,.38); }
+    .inspection-panel pre { white-space:pre-wrap; word-break:break-word; color:#aeb8b8; font:500 .68rem/1.65 "Vselors Mono",monospace; }
+
+    .scan-list { display:grid; gap:.65rem; }
+    .scan-row { display:grid; grid-template-columns:1fr repeat(3,auto); align-items:center; gap:.55rem; padding:.85rem; border:1px solid rgba(243,240,233,.1); border-radius:13px; background:rgba(12,14,15,.68); }
+    .scan-row p { margin:0; color:#d8d7d2; font-size:.74rem; line-height:1.5; }
+    .classify-button { padding:.55rem .65rem; border:1px solid rgba(243,240,233,.12); border-radius:9px; background:#111415; color:#aab0b0; cursor:pointer; font-size:.62rem; }
+    .classify-button.chosen { border-color:var(--ion); color:#e7f9fa; }
+    .scan-row.correct { border-color:rgba(130,215,192,.4); }
+
+    .control-lab { display:grid; grid-template-columns:1fr .8fr; gap:1rem; }
+    .control-panel,.metric-panel { padding:1rem; border:1px solid rgba(243,240,233,.1); border-radius:18px; background:rgba(9,11,12,.66); }
+    .control-row { margin-bottom:1rem; }
+    .control-row label { display:flex; justify-content:space-between; gap:1rem; margin-bottom:.5rem; color:#c9c9c5; font-size:.72rem; }
+    .control-row input[type="range"] { width:100%; accent-color:var(--ion); }
+    .metric-number { margin:.3rem 0; font:600 clamp(2.4rem,6vw,5rem)/1 "Vselors Serif",serif; color:var(--amber); }
+    .metric-panel p { color:#949b9b; font-size:.72rem; line-height:1.55; }
+
+    .toggle-list { display:grid; gap:.6rem; }
+    .toggle-card { display:flex; align-items:center; justify-content:space-between; gap:1rem; width:100%; padding:.85rem 1rem; border:1px solid rgba(243,240,233,.1); border-radius:13px; background:rgba(12,14,15,.7); color:#d8d7d2; cursor:pointer; text-align:left; }
+    .toggle-card::after { content:"KEEP"; color:#8f9696; font:500 .54rem "Vselors Mono",monospace; }
+    .toggle-card.selected { opacity:.56; border-color:rgba(217,138,129,.34); }
+    .toggle-card.selected::after { content:"REMOVE"; color:#d98a81; }
+
+    .result-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:.65rem; margin-top:1rem; }
+    .result-card { padding:.8rem; border:1px solid rgba(243,240,233,.1); border-radius:12px; background:rgba(255,255,255,.025); }
+    .result-card span { display:block; margin-bottom:.3rem; color:#8e9595; font:500 .54rem "Vselors Mono",monospace; }
+    .result-card strong { font-family:"Vselors Serif",serif; font-size:1.3rem; }
+
+    @media (max-width:860px) {
+      .zone-rail { width:calc(100% - 2rem); display:flex; overflow-x:auto; padding-bottom:.3rem; }
+      .zone-tab { flex:0 0 130px; }
+      .course-map .map-deck { min-height:0; }
+      .course-map .mission-node[data-slot] { grid-column:1/-1; }
+      .triage-layout { grid-template-columns:1fr; }
+      .triage-tray,.triage-bay { min-height:120px; }
+      .inspect-layout,.control-lab { grid-template-columns:1fr; }
+      .result-strip { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:520px) {
+      .tool-cloud { grid-template-columns:repeat(2,1fr); }
+      .choice-grid { grid-template-columns:1fr; }
+      .scan-row { grid-template-columns:1fr 1fr; }
+      .scan-row p { grid-column:1/-1; }
+      .result-strip { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
@@ -938,10 +1084,10 @@
           <button class="enter-core" id="enter-core" type="button" aria-label="Enter AI Workflow Rescue">
             <span>Begin the experience<b>→</b></span>
           </button>
-          <div class="fact-line">6 missions in Zone One &nbsp;·&nbsp; beginner friendly &nbsp;·&nbsp; progress saved</div>
+          <div class="fact-line">24 missions &nbsp;·&nbsp; 6 zones &nbsp;·&nbsp; progress saved</div>
           <div class="home-secondary">
             <button class="small-button" type="button" data-open-modal="how-modal">How it works</button>
-            <button class="small-button" type="button" id="preview-zones">View Zone One</button>
+            <button class="small-button" type="button" id="preview-zones">View the course map</button>
           </div>
         </div>
       </div>
@@ -967,7 +1113,7 @@
           <div class="intro-status mono" id="intro-status">Calibrating workflow map…</div>
           <div class="voice-slot" id="voice-slot">
             <span class="voice-label mono">INTRO VOICEOVER SLOT — AUDIO WILL BE ADDED LATER</span>
-            <p class="voice-copy" id="voice-copy">Every reliable workflow starts with one clear signal.</p>
+            <p class="voice-copy" id="voice-copy">A useful workflow starts with a real problem—not a fashionable tool.</p>
           </div>
           <div class="intro-progress" aria-hidden="true"><span></span></div>
           <div class="intro-actions">
@@ -979,7 +1125,7 @@
       </div>
     </section>
 
-    <section id="zone1-screen" class="screen" aria-labelledby="zone1-title">
+    <section id="zone-screen" class="screen" aria-labelledby="zone-title" data-zone="1">
       <div class="zone-shell">
         <header class="app-header">
           <button class="ghost-button" type="button" id="zone-home">← Home</button>
@@ -988,77 +1134,30 @@
             <button class="utility-button sound-toggle" type="button" aria-pressed="false">Sound off</button>
             <button class="utility-button motion-toggle" type="button" aria-pressed="false">Motion auto</button>
             <div class="progress-cluster">
-              <div class="progress-copy"><strong>Zone progress</strong><span id="progress-label">0 of 6 complete</span></div>
+              <div class="progress-copy"><strong>Course progress</strong><span id="progress-label">0 of 24 complete</span></div>
               <div class="progress-ring" id="progress-ring" style="--progress:0%"><span id="progress-percent">0%</span></div>
             </div>
           </div>
         </header>
 
+        <nav class="zone-rail" id="zone-rail" aria-label="Course zones"></nav>
+
         <div class="zone-heading">
           <div>
-            <div class="eyebrow mono">ZONE 01 / THE FOUNDATION</div>
-            <h2 id="zone1-title">A clear route through the logic.</h2>
-            <p>Six focused missions teach how a workflow begins, moves information and protects itself. Complete one mission to reveal the next.</p>
+            <div class="eyebrow mono" id="zone-kicker">ZONE 01 / CHOOSE THE RIGHT PROBLEM</div>
+            <h2 id="zone-title">Start with the need.</h2>
+            <p id="zone-description">Clear away tool noise, choose the right kind of help and shape one useful first workflow.</p>
           </div>
-          <div class="zone-badge mono">6 missions · approx. 25 min</div>
+          <div class="zone-badge mono" id="zone-badge">4 missions · approx. 20 min</div>
         </div>
 
-        <div class="map-viewport" aria-label="Zone 1 mission map">
-          <div class="map-deck">
-            <svg class="map-path" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
-              <path id="path-1" d="M115,435 C210,365 210,250 300,220" />
-              <path id="path-2" d="M300,220 C390,160 430,330 510,338" />
-              <path id="path-3" d="M510,338 C610,410 630,205 710,170" />
-              <path id="path-4" d="M710,170 C760,250 755,390 825,430" />
-              <path id="path-5" d="M825,430 C875,360 890,270 910,235" />
-            </svg>
-
-            <button class="mission-node" data-mission="1" style="--x:11.5%;--y:72.5%;--mobile-index:0" type="button">
-              <span class="node-index mono">01</span><span class="node-state">◆</span><strong>The First Signal</strong><small>Find the event that truly starts the workflow.</small>
-            </button>
-            <button class="mission-node locked" data-mission="2" style="--x:30%;--y:36.5%;--mobile-index:1" type="button">
-              <span class="node-index mono">02</span><span class="node-state">◇</span><strong>Data Relay</strong><small>Connect the right information to the right place.</small>
-            </button>
-            <button class="mission-node locked" data-mission="3" style="--x:51%;--y:56%;--mobile-index:2" type="button">
-              <span class="node-index mono">03</span><span class="node-state">◇</span><strong>AI or Rule?</strong><small>Know when judgment helps—and when it creates risk.</small>
-            </button>
-            <button class="mission-node locked" data-mission="4" style="--x:71%;--y:28%;--mobile-index:3" type="button">
-              <span class="node-index mono">04</span><span class="node-state">◇</span><strong>Missing Payload</strong><small>Repair a flow before bad data escapes.</small>
-            </button>
-            <button class="mission-node locked" data-mission="5" style="--x:82.5%;--y:71.5%;--mobile-index:4" type="button">
-              <span class="node-index mono">05</span><span class="node-state">◇</span><strong>Echo Lock</strong><small>Stop one event from creating two results.</small>
-            </button>
-            <button class="mission-node locked" data-mission="6" style="--x:91%;--y:39%;--mobile-index:5" type="button">
-              <span class="node-index mono">06</span><span class="node-state">◇</span><strong>Live Rescue</strong><small>Build and test the complete beginner workflow.</small>
-            </button>
-          </div>
-
-          <button class="zone2-gate locked" id="zone2-gate" type="button">
-            <span class="mono" id="zone2-state">LOCKED · COMPLETE ZONE 01</span>
-            <strong>Zone 02 — The Faultline</strong>
-            <p>Failures, retries and recovery paths.</p>
+        <div class="map-viewport course-map" id="course-map" aria-label="Current zone mission map">
+          <div class="map-deck" id="map-deck"></div>
+          <button class="zone2-gate locked" id="next-zone-gate" type="button">
+            <span class="mono" id="next-zone-state">LOCKED · COMPLETE THIS ZONE</span>
+            <strong id="next-zone-title">Zone 02 — Understand workflow logic</strong>
+            <p id="next-zone-copy">Map information, filters, lists and storage.</p>
           </button>
-        </div>
-      </div>
-    </section>
-
-    <section id="zone2-screen" class="screen" aria-labelledby="zone2-title">
-      <header class="app-header">
-        <button class="ghost-button" type="button" id="back-zone1">← Zone 1</button>
-        <div class="app-brand" style="--ion:var(--amber)">AI WORKFLOW RESCUE</div>
-        <div class="header-actions"><button class="utility-button sound-toggle" type="button" aria-pressed="false">Sound off</button><button class="utility-button motion-toggle" type="button" aria-pressed="false">Motion auto</button></div>
-      </header>
-      <div class="faultline-field">
-        <div class="fault-grid" aria-hidden="true"></div>
-        <div class="crystal" style="left:12%;top:20%;--z:40px;--r:-12deg" aria-hidden="true"></div>
-        <div class="crystal" style="right:10%;bottom:14%;--z:80px;--r:18deg;animation-delay:-2s" aria-hidden="true"></div>
-        <div class="crystal" style="right:22%;top:9%;--z:10px;--r:7deg;animation-delay:-4s" aria-hidden="true"></div>
-        <div class="zone2-copy">
-          <div class="eyebrow mono">ZONE 02 / MAP UNLOCKED</div>
-          <h2 id="zone2-title">The Faultline</h2>
-          <p>This zone will train error paths, retries, timeouts and recovery. Its map uses a different fractured visual system so every zone feels like a new environment—not a reskinned level list.</p>
-          <div class="core-line" style="border-color:var(--amber)">Zone 1 taught you how a workflow should move. Zone 2 will teach you what to do when it does not.</div>
-          <button class="ghost-button" type="button" id="zone2-return">Return to completed map</button>
         </div>
       </div>
     </section>
@@ -1086,11 +1185,11 @@
 
   <div class="modal-backdrop" id="zone-complete-modal" role="dialog" aria-modal="true" aria-labelledby="zone-complete-title">
     <div class="modal-card zone-complete-card">
-      <div class="eyebrow mono">ZONE 01 STABLE</div>
-      <h2 id="zone-complete-title">Foundation restored.</h2>
-      <p>You can now identify triggers, map data, separate AI judgment from fixed rules, protect missing fields and stop duplicate runs.</p>
-      <p class="core-line" style="border-color:var(--amber)">You did not memorise a tool. You learned the logic underneath the tools.</p>
-      <div class="modal-actions"><button class="primary-button" type="button" id="enter-zone2">Enter Zone 2 map</button><button class="ghost-button" type="button" id="stay-zone1">Stay in Zone 1</button></div>
+      <div class="eyebrow mono" id="zone-complete-kicker">ZONE 01 COMPLETE</div>
+      <h2 id="zone-complete-title">Problem chosen.</h2>
+      <p id="zone-complete-copy">You can now define a useful workflow before choosing the software.</p>
+      <p class="core-line" id="zone-outcome-line" style="border-color:var(--amber)">Unlocked: Workflow Brief</p>
+      <div class="modal-actions"><button class="primary-button" type="button" id="enter-next-zone">Enter the next zone</button><button class="ghost-button" type="button" id="stay-current-zone">Stay on this map</button></div>
     </div>
   </div>
 
@@ -1110,7 +1209,7 @@
   <div class="page-transition" id="page-transition" aria-hidden="true"><div class="door left"></div><div class="door right"></div><div class="transition-copy" id="transition-copy">Opening Zone 01</div></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script>
+  <script type="text/plain" id="legacy-six-mission-engine">
     (() => {
       'use strict';
 
@@ -1662,6 +1761,349 @@
       }, {passive:true});
 
       syncSettings(); renderMap();
+    })();
+  </script>
+  <script>
+    (() => {
+      'use strict';
+
+      const CONFIG = {
+        introVoice: '',
+        storageKey: 'vselors-ai-workflow-rescue-v2'
+      };
+
+      const zones = {
+        1: {
+          title: 'Choose the right problem',
+          heading: 'Start with the need.',
+          description: 'Clear away tool noise, choose the right kind of help and shape one useful first workflow.',
+          next: 'Understand workflow logic',
+          nextCopy: 'Map information, filters, lists and storage.',
+          completeTitle: 'Problem chosen.',
+          completeCopy: 'You can now define a useful workflow before choosing the software.',
+          outcome: 'Unlocked: Workflow Brief — When ___ happens, use ___ to perform ___ and deliver ___ for review or action.'
+        },
+        2: {
+          title: 'Understand workflow logic',
+          heading: 'Make the flow visible.',
+          description: 'Map information, control routes, process lists and decide what the workflow must remember.',
+          next: 'Connect systems safely',
+          nextCopy: 'Credentials, webhooks, APIs and your first complete creator flow.',
+          completeTitle: 'Logic mapped.',
+          completeCopy: 'You can now see how information moves and where workflow decisions happen.',
+          outcome: 'Unlocked: Flow and Data Map'
+        },
+        3: {
+          title: 'Connect systems safely',
+          heading: 'Connect without exposing.',
+          description: 'Handle credentials, live signals and app responses before assembling a complete beginner workflow.',
+          next: 'Control AI output',
+          nextCopy: 'Brief the AI, shape its output and protect quality.',
+          completeTitle: 'Systems connected.',
+          completeCopy: 'You can build and test one simple tool-neutral workflow across connected apps.',
+          outcome: 'Unlocked: First Creator Flow'
+        },
+        4: {
+          title: 'Control AI output',
+          heading: 'Keep AI inside the lines.',
+          description: 'Give AI a complete brief, validate its structure, catch inventions and place human review correctly.',
+          next: 'Rescue broken workflows',
+          nextCopy: 'Investigate failures, build escape routes and control retries.',
+          completeTitle: 'Quality gate active.',
+          completeCopy: 'You can now control what AI receives, produces and is allowed to do next.',
+          outcome: 'Unlocked: AI Quality Gate'
+        },
+        5: {
+          title: 'Rescue broken workflows',
+          heading: 'Find the first break.',
+          description: 'Trace missing values, prevent silent failures, control request storms and stop duplicate actions.',
+          next: 'Release responsibly',
+          nextCopy: 'Privacy, cost, stress testing and the final rescue.',
+          completeTitle: 'Rescue route built.',
+          completeCopy: 'You can now diagnose failures and design a safe response before they reach customers.',
+          outcome: 'Unlocked: Error Rescue Plan'
+        },
+        6: {
+          title: 'Release responsibly',
+          heading: 'Ship with control.',
+          description: 'Reduce exposed data, control cost, test difficult cases and combine every major skill in a final rescue.',
+          next: 'Course complete',
+          nextCopy: 'Review your final rescue score.',
+          completeTitle: 'Rescue complete.',
+          completeCopy: 'You built a controlled creator workflow that can survive real inputs, failures and review.',
+          outcome: 'Final score: Judgment · Flow Logic · Reliability · Safety'
+        }
+      };
+
+      const missions = {
+        1: { title:'The Tool Avalanche', format:'Declutter and reveal', question:false, subtitle:'A creator is buried under tool names while one repeated problem remains hidden.', brief:'Remove the distracting tools until the creator’s actual need is visible.', core:'Core rule: Start with the repeated problem, not the software.', completion:'You uncovered the repeated task, useful result and human-review boundary.' },
+        2: { title:'Automation Triage', format:'Decision workstations', question:true, subtitle:'One workflow contains predictable work, language work and sensitive judgment.', brief:'Which worker should handle each part?', core:'Core rule: Predictable task → rules. Language or interpretation → AI assistance. Sensitive judgment → human.', completion:'Every task now has the right kind of worker.' },
+        3: { title:'The Smallest Win', format:'Workflow scope cutter', question:true, subtitle:'A creator’s first idea has expanded into a seventeen-node autonomous agent.', brief:'What is the smallest useful result this creator needs today?', core:'Core rule: The first workflow should be useful, testable and controlled.', completion:'You cut an oversized idea down to one realistic result.' },
+        4: { title:'Workflow X-Ray', format:'Visual construction puzzle', question:false, subtitle:'Technical words are hiding a simple four-part workflow pattern.', brief:'Arrange the creator’s workflow from start to reviewed result.', core:'Core rule: A workflow is Start → Information → Work → Result.', completion:'You built a reusable workflow pattern without depending on technical jargon.' },
+        5: { title:'Map the Data', format:'Cable-mapping board', question:false, subtitle:'Correct information is arriving, but it is landing in the wrong destination fields.', brief:'Connect each incoming value to the field that actually needs it.', core:'Core rule: Map each value by meaning, not by position.', completion:'The title, transcript, platform, review status and notification now land correctly.' },
+        6: { title:'The Gatekeeper', format:'Conditional route simulator', question:true, subtitle:'Drafts with missing or inconsistent status values are slipping through the route.', brief:'Which drafts are allowed to continue?', core:'Core rule: Filters must handle approved, rejected, missing and mismatched values on purpose.', completion:'Only truly approved drafts can continue.' },
+        7: { title:'Split the Bundle', format:'Conveyor split-and-rebuild', question:false, subtitle:'Five content ideas arrive inside one bundle, but each one needs separate work.', brief:'Split the bundle, process each idea and rebuild one review document.', core:'Core rule: Split a list before processing each item; combine it only after the individual work is finished.', completion:'You used loop logic without needing to memorise the technical names.' },
+        8: { title:'Where Does It Live?', format:'Storage placement activity', question:true, subtitle:'The workflow is saving temporary noise and forgetting information it needs tomorrow.', brief:'Will the workflow need this information tomorrow?', core:'Core rule: Separate run-only data, saved data and protected secrets.', completion:'Every piece of information now has a safe lifespan and location.' },
+        9: { title:'The Credential Vault', format:'Risk detection and secure storage', question:true, subtitle:'A creator’s private key is travelling through the workflow as ordinary text.', brief:'Which connection is exposing the creator’s private key?', core:'Core rule: A workflow may use a secret. It should never display, export or send it as ordinary information.', completion:'The exposed key has been moved into protected credential storage.' },
+        10:{ title:'Webhook Alarm', format:'Live signal investigation', question:false, subtitle:'The test signal arrives, but real creator submissions never start the workflow.', brief:'Trace the live route and repair the missing production signal.', core:'Core rule: A successful test does not prove the live trigger is published and connected.', completion:'The production signal now reaches the active workflow.' },
+        11:{ title:'The API Messenger', format:'Request-and-response inspection', question:false, subtitle:'One app rejects the workflow request because a required piece of information is absent.', brief:'Inspect the request, find the missing field and send it again.', core:'Core rule: Read the request and response before guessing why an app rejected the call.', completion:'The required content ID is present and the request succeeds.' },
+        12:{ title:'First Creator Flow', format:'Guided workflow construction', question:false, subtitle:'It is time to assemble and test a complete tool-neutral creator workflow.', brief:'Build the four-step flow, then run complete, missing and unsupported submissions.', core:'Core rule: A workflow is not ready until normal and difficult inputs have both been tested.', completion:'Your first creator flow now handles three realistic submissions.' },
+        13:{ title:'Give AI the Brief', format:'Prompt-block construction', question:false, subtitle:'The AI is producing weak drafts because its instruction is missing important boundaries.', brief:'Build the complete brief from source, task, rules and output format.', core:'Core rule: Controlled AI needs a source, task, boundaries and output shape.', completion:'The AI now has enough context to create useful, checkable drafts.' },
+        14:{ title:'Shape the Output', format:'Broken-data surgery', question:false, subtitle:'The AI result changes shape between runs and breaks the next step.', brief:'Repair the five output defects before the data continues.', core:'Core rule: Smaller, clearer output structures are easier to validate.', completion:'The output is clean, complete and predictable enough for the next step.' },
+        15:{ title:'Hallucination Detector', format:'Evidence-scanning investigation', question:true, subtitle:'A polished draft contains claims that may not exist in the original transcript.', brief:'Which parts of this draft cannot be proved by the original transcript?', core:'Core rule: Separate supported facts, reasonable rewrites and unsupported inventions.', completion:'Every claim has been checked against its source.' },
+        16:{ title:'Brand Drift', format:'Human-approval switchboard', question:true, subtitle:'Some actions are safe to continue; others could damage trust if no human sees them.', brief:'Can this safely continue without the creator seeing it?', core:'Core rule: Human review belongs before sensitive, public or promise-making actions.', completion:'The human checkpoint now protects the decisions that carry real risk.' },
+        17:{ title:'The Missing Field', format:'Execution-log investigation', question:false, subtitle:'The AI step is showing a loud error, but the true failure happened earlier.', brief:'Open each step’s input and output. Find the first broken step.', core:'Core rule: Find the first broken step, not the loudest error at the end.', completion:'You traced the empty transcript to the point where it first disappeared.' },
+        18:{ title:'Build the Escape Route', format:'Error-path construction', question:false, subtitle:'A failed action currently disappears without evidence, recovery or warning.', brief:'Build the route that preserves the failure and stops unsafe later actions.', core:'Core rule: Save the error, keep the failed item, notify the owner and stop unsafe actions.', completion:'The workflow can now fail visibly and recoverably.' },
+        19:{ title:'Rate-Limit Storm', format:'Traffic-control simulator', question:true, subtitle:'One hundred items are flooding the connected app with requests.', brief:'How do you move 100 items without flooding the connected app?', core:'Core rule: Use small batches, deliberate delay and limited retries.', completion:'The request storm is now moving at a safe, controlled rate.' },
+        20:{ title:'Duplicate Disaster', format:'Root-cause repair', question:false, subtitle:'Retries caused the same approved post to publish three times.', brief:'Install the protections that make repeated events harmless.', core:'Core rule: Check a unique ID and completion status before acting, then record success.', completion:'The same content can no longer create the same result twice.' },
+        21:{ title:'Privacy Sweep', format:'Sensitive-data heatmap', question:true, subtitle:'The workflow is carrying far more private information than the result requires.', brief:'What information does this workflow truly need?', core:'Core rule: Move the minimum information required for the task.', completion:'Passwords, keys and unnecessary personal data have been removed from the flow.' },
+        22:{ title:'The Cost Leak', format:'Live cost simulator', question:false, subtitle:'Repeated calls, long inputs and bad ordering are quietly consuming credits.', brief:'Reduce cost without destroying the quality of the result.', core:'Core rule: Filter early, shorten inputs and group repeated work before calling AI.', completion:'The workflow now reaches the same useful result with less waste.' },
+        23:{ title:'Stress Test', format:'Multi-case testing laboratory', question:false, subtitle:'The happy path works, but unusual inputs have never been tested.', brief:'Run five difficult cases and confirm the workflow stops, retries or asks for help safely.', core:'Core rule: Test missing, long, malformed and disconnected cases before release.', completion:'The workflow has survived the important edge cases.' },
+        24:{ title:'The Final Rescue', format:'Blank-canvas capstone', question:false, subtitle:'Build and rescue a complete creator workflow using every major skill.', brief:'Construct the final flow and install all six safety requirements.', core:'Core rule: A responsible workflow combines judgment, flow logic, reliability and safety.', completion:'You completed the final rescue with control at every critical point.' }
+      };
+
+      const defaultState = {
+        completed: [], sound: false,
+        reduceMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        introSeen: false, currentZone: 1
+      };
+      let state = loadState();
+      let currentMission = 1;
+      let lastCompletedMission = 1;
+      let currentZone = Number(state.currentZone) || 1;
+      let audioContext = null;
+      let introTimers = [];
+
+      function $(selector, root=document) { return root.querySelector(selector); }
+      function $$(selector, root=document) { return [...root.querySelectorAll(selector)]; }
+      function zoneForMission(id) { return Math.ceil(id / 4); }
+      function zoneMissionIds(zone) { return [zone*4-3, zone*4-2, zone*4-1, zone*4]; }
+      function zoneUnlocked(zone) { return zone === 1 || state.completed.includes((zone-1)*4); }
+      function zoneComplete(zone) { return zoneMissionIds(zone).every(id => state.completed.includes(id)); }
+
+      function loadState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(CONFIG.storageKey));
+          return { ...defaultState, ...(saved || {}), completed:Array.isArray(saved?.completed) ? saved.completed.filter(id => id>=1 && id<=24) : [] };
+        } catch { return { ...defaultState }; }
+      }
+      function saveState() { state.currentZone=currentZone; localStorage.setItem(CONFIG.storageKey,JSON.stringify(state)); }
+
+      function showToast(message) {
+        const toast=$('#toast'); toast.textContent=message; toast.classList.add('show');
+        clearTimeout(showToast.timer); showToast.timer=setTimeout(()=>toast.classList.remove('show'),2200);
+      }
+      function tone(type='tap') {
+        if (!state.sound) return;
+        try {
+          audioContext ||= new (window.AudioContext||window.webkitAudioContext)();
+          const osc=audioContext.createOscillator(), gain=audioContext.createGain();
+          const values={tap:[330,.04,.03],success:[620,.12,.07],error:[150,.08,.04],transition:[210,.2,.05]}[type]||[330,.04,.03];
+          osc.type=type==='success'?'sine':'triangle'; osc.frequency.setValueAtTime(values[0],audioContext.currentTime);
+          if(type==='success') osc.frequency.exponentialRampToValueAtTime(920,audioContext.currentTime+values[1]);
+          gain.gain.setValueAtTime(values[2],audioContext.currentTime); gain.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+values[1]);
+          osc.connect(gain).connect(audioContext.destination); osc.start(); osc.stop(audioContext.currentTime+values[1]);
+        } catch {}
+      }
+      function syncSettings() {
+        document.body.classList.toggle('reduce-motion',state.reduceMotion);
+        $$('.sound-toggle').forEach(button=>{button.textContent=state.sound?'Sound on':'Sound off';button.setAttribute('aria-pressed',String(state.sound));});
+        $$('.motion-toggle').forEach(button=>{button.textContent=state.reduceMotion?'Motion reduced':'Motion auto';button.setAttribute('aria-pressed',String(state.reduceMotion));});
+      }
+      function setScreen(id) {
+        $$('.screen').forEach(screen=>{const active=screen.id===id;screen.classList.toggle('active',active);screen.setAttribute('aria-hidden',String(!active));});
+        window.scrollTo(0,0);
+      }
+      function pageTransition(targetId,label='Opening zone') {
+        const overlay=$('#page-transition'); $('#transition-copy').textContent=label; overlay.classList.remove('active'); void overlay.offsetWidth; overlay.classList.add('active'); tone('transition');
+        setTimeout(()=>setScreen(targetId),state.reduceMotion?10:540); setTimeout(()=>overlay.classList.remove('active'),state.reduceMotion?30:1270);
+      }
+      function startIntro() {
+        setScreen('intro-screen'); state.introSeen=true; saveState(); introTimers.forEach(clearTimeout); introTimers=[];
+        const status=$('#intro-status'),button=$('#continue-zone'); button.disabled=true;
+        const voice=$('#intro-voice'); if(CONFIG.introVoice){voice.src=CONFIG.introVoice;voice.volume=.9;voice.play().catch(()=>{});$('.voice-label').textContent='OPERATOR BRIEFING';}
+        [[700,'Reading 24-mission architecture…'],[1700,'Building six zone maps…'],[2850,'Operator link stable.'],[3900,'Zone 01 ready.']].forEach(([time,text])=>introTimers.push(setTimeout(()=>{status.textContent=text;tone('tap');},state.reduceMotion?10:time)));
+        introTimers.push(setTimeout(()=>{button.disabled=false;button.focus();},state.reduceMotion?20:4100));
+      }
+
+      function renderZoneRail() {
+        $('#zone-rail').innerHTML=Object.entries(zones).map(([id,zone])=>{
+          const n=Number(id), unlocked=zoneUnlocked(n), complete=zoneComplete(n);
+          return `<button class="zone-tab ${n===currentZone?'active':''} ${complete?'complete':''} ${!unlocked?'locked':''}" data-zone-target="${n}" type="button" aria-disabled="${!unlocked}"><span>${complete?'✓':!unlocked?'LOCKED':String(n).padStart(2,'0')}</span><strong>${zone.title}</strong></button>`;
+        }).join('');
+      }
+
+      function renderMap() {
+        if(!zoneUnlocked(currentZone)) currentZone=1;
+        const zone=zones[currentZone], count=state.completed.length, percent=Math.round(count/24*100);
+        state.currentZone=currentZone; saveState();
+        $('#zone-screen').dataset.zone=String(currentZone);
+        $('#progress-label').textContent=`${count} of 24 complete`; $('#progress-percent').textContent=`${percent}%`; $('#progress-ring').style.setProperty('--progress',`${percent}%`);
+        $('#zone-kicker').textContent=`ZONE ${String(currentZone).padStart(2,'0')} / ${zone.title.toUpperCase()}`; $('#zone-title').textContent=zone.heading; $('#zone-description').textContent=zone.description; $('#zone-badge').textContent='4 missions · approx. 20 min';
+        renderZoneRail();
+        $('#map-deck').innerHTML=zoneMissionIds(currentZone).map((id,index)=>{
+          const mission=missions[id], complete=state.completed.includes(id), unlocked=id===1||state.completed.includes(id-1);
+          return `<button class="mission-node ${complete?'completed':''} ${!unlocked?'locked':''}" data-mission="${id}" data-slot="${index+1}" type="button" aria-disabled="${!unlocked}"><span class="node-index mono">${String(id).padStart(2,'0')}</span><span class="node-state">${complete?'✓':unlocked?'◆':'◇'}</span><strong>${mission.title}</strong><small>${mission.brief}</small><em class="mission-format">${mission.format}</em></button>`;
+        }).join('');
+        const gate=$('#next-zone-gate'), complete=zoneComplete(currentZone);
+        gate.classList.toggle('locked',!complete);
+        if(currentZone<6){$('#next-zone-state').textContent=complete?'UNLOCKED · ENTER NEXT ZONE':'LOCKED · COMPLETE THIS ZONE';$('#next-zone-title').textContent=`Zone ${String(currentZone+1).padStart(2,'0')} — ${zone.next}`;$('#next-zone-copy').textContent=zone.nextCopy;}
+        else{$('#next-zone-state').textContent=complete?'FINAL RESCUE COMPLETE':'LOCKED · COMPLETE THIS ZONE';$('#next-zone-title').textContent='Final course record';$('#next-zone-copy').textContent=complete?'Review your rescue outcome.':'Complete all four final missions.';}
+      }
+      function openZone(zone) { if(!zoneUnlocked(zone)){showToast('Complete the previous zone first.');tone('error');return;} currentZone=zone;renderMap();pageTransition('zone-screen',`Opening Zone ${String(zone).padStart(2,'0')}`); }
+
+      function missionTemplate(mission,workspace) {
+        return `<div class="mission-brief"><div><div class="eyebrow mono">${mission.question?'DECISION REQUIRED':'SYSTEM PROBLEM DETECTED'}</div><h2 id="mission-title">${mission.title}</h2><p>${mission.subtitle}</p></div><div class="brief-card"><span class="mono">YOUR TASK · ${mission.format}</span><p>${mission.brief}</p></div></div><div class="mission-workspace">${workspace}<div class="mission-hint" id="mission-hint" role="status" aria-live="polite"></div></div><div class="mission-footer"><p>No lives. No timer. Every wrong move shows a real consequence.</p><button class="primary-button" id="finish-mission" type="button" disabled>Stabilise mission</button></div>`;
+      }
+      function setHint(text,kind='hint') { const hint=$('#mission-hint'); if(!hint)return; hint.textContent=text; hint.style.color=kind==='good'?'var(--success)':kind==='error'?'var(--danger)':'var(--amber)'; tone(kind==='good'?'success':kind==='error'?'error':'tap'); }
+      function enableFinish(message='Workflow stable. Lock in what you learned.') { const button=$('#finish-mission'); if(button)button.disabled=false; setHint(message,'good'); }
+      function wireFinish() { $('#finish-mission').addEventListener('click',()=>completeMission(currentMission)); }
+
+      function renderSequence(root,mission,steps,order,lead='') {
+        const chosen=[];
+        root.innerHTML=missionTemplate(mission,`${lead}<div class="sequence-track" id="sequence-track"><span class="muted">Build the sequence here.</span></div><div class="sequence-palette">${order.map(id=>`<button class="sequence-card" data-step="${id}" type="button">${steps.find(step=>step[0]===id)[1]}</button>`).join('')}</div><div class="sequence-tools"><button class="small-button" id="undo-step" type="button">Undo last</button><button class="small-button" id="clear-steps" type="button">Clear</button></div>`);
+        const draw=()=>{ $('#sequence-track').innerHTML=chosen.length?chosen.map(id=>`<div class="track-step">${steps.find(step=>step[0]===id)[1]}</div>`).join(''):'<span class="muted">Build the sequence here.</span>'; $$('.sequence-card',root).forEach(card=>card.classList.toggle('used',chosen.includes(card.dataset.step))); if(chosen.length===steps.length){const expected=steps.map(step=>step[0]);if(chosen.every((id,index)=>id===expected[index]))enableFinish();else setHint('The parts are useful, but the order creates the wrong result. Trace what must happen first.','error');}};
+        $$('.sequence-card',root).forEach(card=>card.addEventListener('click',()=>{if(!chosen.includes(card.dataset.step)){chosen.push(card.dataset.step);draw();}}));
+        $('#undo-step').addEventListener('click',()=>{chosen.pop();draw();setHint('Last step removed.');}); $('#clear-steps').addEventListener('click',()=>{chosen.length=0;draw();setHint('Sequence cleared.');}); wireFinish();
+      }
+
+      function renderSort(root,mission,items,bays,lead='') {
+        let selected=null,placed=0;
+        root.innerHTML=missionTemplate(mission,`${lead}<div class="triage-layout"><div class="triage-tray"><h3>Waiting items</h3><div id="triage-items">${items.map(item=>`<button class="mini-item" data-item="${item[0]}" type="button">${item[1]}</button>`).join('')}</div></div>${bays.map(bay=>`<button class="triage-bay" data-bay="${bay[0]}" type="button"><h3>${bay[1]}</h3><div id="bay-${bay[0]}"></div></button>`).join('')}</div>`);
+        $$('.mini-item',root).forEach(card=>card.addEventListener('click',()=>{$$('.mini-item',root).forEach(c=>c.classList.remove('selected'));card.classList.add('selected');selected=card.dataset.item;setHint('Item selected. Choose its correct destination.');}));
+        $$('.triage-bay',root).forEach(bay=>bay.addEventListener('click',()=>{if(!selected){setHint('Select a waiting item first.');return;}const item=items.find(row=>row[0]===selected);if(item[2]!==bay.dataset.bay){setHint(item[3]||'That destination would create the wrong workflow behaviour.','error');return;} $(`.mini-item[data-item="${selected}"]`,root).remove();$(`#bay-${bay.dataset.bay}`,root).insertAdjacentHTML('beforeend',`<div class="placed-item">${item[1]}</div>`);selected=null;placed++;if(placed===items.length)enableFinish();else setHint('Correct. Place the next item.','good');})); wireFinish();
+      }
+
+      function renderClassification(root,mission,rows,categories,source='') {
+        let correct=0;
+        root.innerHTML=missionTemplate(mission,`${source}<div class="scan-list">${rows.map(row=>`<div class="scan-row" data-row="${row[0]}"><p>${row[1]}</p>${categories.map(cat=>`<button class="classify-button" data-value="${cat[0]}" type="button">${cat[1]}</button>`).join('')}</div>`).join('')}</div>`);
+        $$('.classify-button',root).forEach(button=>button.addEventListener('click',()=>{const row=button.closest('.scan-row');if(row.classList.contains('correct'))return;const answer=rows.find(item=>item[0]===row.dataset.row)[2];if(button.dataset.value!==answer){setHint('That label does not match the source evidence or the risk of the action.','error');return;}row.classList.add('correct');button.classList.add('chosen');correct++;if(correct===rows.length)enableFinish();else setHint('Correct distinction. Continue scanning.','good');})); wireFinish();
+      }
+
+      function renderMission1(root) {
+        const tools=['AI Agent','Scraper','Auto-Poster','Chatbot','Database','Voice AI','CRM']; let removed=0;
+        root.innerHTML=missionTemplate(missions[1],`<div class="reveal-board"><div class="creator-message"><span class="eyebrow mono">CREATOR MESSAGE</span><blockquote>“Every time I finish a video, I spend nearly an hour turning it into posts. I only need draft versions ready for me to review.”</blockquote><div class="result-strip"><div class="result-card"><span>REPEATED TASK</span><strong>Video → posts</strong></div><div class="result-card"><span>USEFUL RESULT</span><strong>Drafts for review</strong></div><div class="result-card"><span>BOUNDARY</span><strong>No auto-publish</strong></div></div></div><div class="tool-cloud" id="tool-cloud">${tools.map((tool,index)=>`<button class="tool-card" data-tool="${index}" type="button">${tool}<br><small>remove distraction</small></button>`).join('')}</div></div>`);
+        $$('.tool-card',root).forEach(card=>card.addEventListener('click',()=>{card.classList.add('removed');removed++;setHint(`${tools.length-removed} distractions remain. Keep looking for the creator’s repeated problem.`);if(removed===tools.length){$('#tool-cloud').classList.add('cleared');enableFinish('Problem visible: turn one approved video into draft posts for human review.');}}));wireFinish();
+      }
+      function renderMission2(root) {
+        renderSort(root,missions[2],[['move','Move an approved caption into a scheduled folder.','rules','This is a predictable move with a clear condition.'],['rewrite','Rewrite a transcript into three post drafts.','ai','This task needs language and interpretation.'],['story','Decide whether a sensitive personal story should be published.','human','Sensitive public judgment must remain human.'],['rename','Rename uploaded files using the date.','rules','A fixed naming pattern needs a rule, not AI.'],['opinion','Check whether an AI draft matches the creator’s real opinion.','human','Only the creator can approve what they truly believe.']],[['human','Keep human'],['rules','Use simple rules'],['ai','Use AI assistance']]);
+      }
+      function renderMission3(root) {
+        const options=[['company','A fully autonomous content company.','Too large: dozens of decisions are hidden and the result is hard to test.'],['publish','Posts automatically published everywhere.','Too risky: the creator loses the review boundary.'],['drafts','Three draft captions saved for review.','Strong choice: useful, testable and controlled.'],['replace','An AI agent that replaces the creator.','Wrong goal: the creator’s judgment is part of the product.']];
+        root.innerHTML=missionTemplate(missions[3],`<div class="choice-grid">${options.map(option=>`<button class="choice-card" data-choice="${option[0]}" type="button"><strong>${option[1]}</strong><span>Preview the consequence</span></button>`).join('')}</div><div class="consequence" id="consequence">Choose a result to preview what the workflow would become.</div>`);
+        $$('.choice-card',root).forEach(card=>card.addEventListener('click',()=>{$$('.choice-card',root).forEach(c=>c.classList.remove('correct','wrong'));const option=options.find(row=>row[0]===card.dataset.choice);$('#consequence').textContent=option[2];if(card.dataset.choice==='drafts'){card.classList.add('correct');enableFinish();}else{card.classList.add('wrong');setHint('Cut the scope again. Keep one useful result and a human review boundary.','error');}}));wireFinish();
+      }
+      function renderMission4(root) { renderSequence(root,missions[4],[['start','Approved transcript added'],['info','Transcript content'],['work','Create three platform drafts'],['result','Save drafts for review']],['work','start','result','info'],`<p class="activity-note">Formal labels unlock after the pattern is stable: Trigger · Input · Action · Output.</p>`); }
+      function renderMission5(root) {
+        const sources=[['title','Video title'],['transcript','Transcript'],['platform','Instagram'],['status','Draft'],['email','Creator email']],targets=[['content','Content title'],['source','Source material'],['target','Target platform'],['review','Review status'],['notify','Notification recipient']],correct={title:'content',transcript:'source',platform:'target',status:'review',email:'notify'};let selected=null,matched=0;
+        root.innerHTML=missionTemplate(missions[5],`<div class="mapping-board"><div class="mapping-column"><h3>Incoming creator information</h3>${sources.map(item=>`<button class="data-chip" data-source="${item[0]}" type="button">${item[1]}</button>`).join('')}</div><div class="mapping-links" id="mapping-links"><div class="muted">Select information, then choose its destination.</div></div><div class="mapping-column"><h3>Destination fields</h3>${targets.map(item=>`<button class="target-chip" data-target="${item[0]}" type="button">${item[1]}</button>`).join('')}</div></div>`);
+        $$('.data-chip',root).forEach(button=>button.addEventListener('click',()=>{if(button.classList.contains('used'))return;$$('.data-chip',root).forEach(b=>b.classList.remove('selected'));button.classList.add('selected');selected=button.dataset.source;setHint('Cable selected. Choose the destination field.');}));
+        $$('.target-chip',root).forEach(button=>button.addEventListener('click',()=>{if(!selected){setHint('Select incoming information first.');return;}if(correct[selected]!==button.dataset.target){setHint(selected==='transcript'&&button.dataset.target==='content'?'That would place the full transcript inside the title field.':'The destination expects a different kind of information.','error');return;}const source=$(`.data-chip[data-source="${selected}"]`,root);source.classList.remove('selected');source.classList.add('used');button.classList.add('used');if(matched===0)$('#mapping-links').innerHTML='';$('#mapping-links').insertAdjacentHTML('beforeend',`<div class="mapping-link">${source.textContent} → ${button.textContent}</div>`);selected=null;matched++;if(matched===5)enableFinish();else setHint('Connection stable. Map the next value.','good');}));wireFinish();
+      }
+      function renderMission6(root) { renderSort(root,missions[6],[['approved','Status: Approved','continue',''],['changes','Status: Needs Changes','return',''],['empty','Status: [empty]','stop',''],['lowercase','Status: approved','stop','Exact conditions can reject incorrectly capitalised values.']],[['continue','Continue'],['return','Return for editing'],['stop','Stop + alert']],`<p class="activity-note">The gate uses an exact Approved condition. Missing and differently capitalised values must be handled safely.</p>`); }
+      function renderMission7(root) { renderSequence(root,missions[7],[['open','Open the five-idea bundle'],['split','Process each idea separately'],['draft','Create one draft for each idea'],['combine','Combine the results into one review document']],['combine','draft','open','split'],`<div class="brief-card"><span class="mono">INCOMING BUNDLE</span><p>Idea 01 · Idea 02 · Idea 03 · Idea 04 · Idea 05</p></div>`); }
+      function renderMission8(root) { renderSort(root,missions[8],[['caption','Current caption draft','run',''],['rules','Creator’s brand rules','later',''],['response','Temporary API response','run',''],['approval','Approval status','later',''],['secret','Secret access key','vault','A secret never belongs in ordinary temporary or saved storage.'],['counter','Processing counter','run','']],[['run','Needed only this run'],['later','Needed again later'],['vault','Protected credential vault']]); }
+      function renderMission9(root) {
+        const nodes=[['form','Creator form','Fields: title, transcript, platform'],['ai','AI draft step','Uses protected credential: CRED_AI_01'],['sheet','Spreadsheet export','Columns include title, status, api_key=sk-live-82A…'],['notify','Review notification','Recipient: creator@example.com']];
+        root.innerHTML=missionTemplate(missions[9],`<div class="inspect-layout"><div class="inspect-list"><div class="activity-title">Inspect connections</div>${nodes.map(node=>`<button class="inspect-node ${node[0]==='sheet'?'alert':''}" data-inspect="${node[0]}" type="button">${node[1]}</button>`).join('')}</div><div class="inspection-panel"><div class="activity-title">Connection contents</div><pre id="inspection-copy">Select a connection to inspect what it carries.</pre><button class="primary-button" id="secure-key" type="button" hidden>Move exposed key to vault</button></div></div>`);
+        $$('.inspect-node',root).forEach(button=>button.addEventListener('click',()=>{const node=nodes.find(item=>item[0]===button.dataset.inspect);$('#inspection-copy').textContent=node[2];$('#secure-key').hidden=node[0]!=='sheet';if(node[0]==='sheet')setHint('Risk found: the private key is being exported as ordinary data.','error');else setHint('This connection does not expose the key. Keep inspecting.');}));
+        $('#secure-key').addEventListener('click',()=>{$('#inspection-copy').textContent='api_key → PROTECTED CREDENTIAL VAULT\nSpreadsheet export → key removed';$('#secure-key').hidden=true;enableFinish('Credential secured. The workflow can use the key without displaying or exporting it.');});wireFinish();
+      }
+      function renderMission10(root) {
+        const nodes=[['test','Test signal','Received · test address'],['workflow','Workflow status','Draft · not active'],['live','Production address','Available · no events connected'],['app','Creator form','Still sending to test address']];
+        root.innerHTML=missionTemplate(missions[10],`<div class="inspect-layout"><div class="inspect-list"><div class="activity-title">Signal route</div>${nodes.map(node=>`<button class="inspect-node" data-inspect="${node[0]}" type="button">${node[1]}</button>`).join('')}</div><div class="inspection-panel"><div class="activity-title">Signal monitor</div><pre id="inspection-copy">TEST: received\nLIVE: missing</pre><button class="primary-button" id="repair-live" type="button" hidden>Publish + connect production route</button></div></div>`);
+        $$('.inspect-node',root).forEach(button=>button.addEventListener('click',()=>{const node=nodes.find(item=>item[0]===button.dataset.inspect);$('#inspection-copy').textContent=`${node[1]}\n${node[2]}`;$('#repair-live').hidden=!['workflow','app'].includes(node[0]);setHint(node[0]==='test'?'The test works, but it does not prove the live route exists.':'You found a live-route problem. Repair both activation and connection.');}));
+        $('#repair-live').addEventListener('click',()=>{$('#inspection-copy').textContent='WORKFLOW: active\nPRODUCTION ADDRESS: connected\nLIVE SIGNAL: received';$('#repair-live').hidden=true;enableFinish();});wireFinish();
+      }
+      function renderMission11(root) {
+        root.innerHTML=missionTemplate(missions[11],`<div class="inspect-layout"><div class="inspection-panel"><div class="activity-title">Outgoing request</div><pre id="request-copy">POST /drafts\nplatform: instagram\ncaption: "Three ways to plan…"\ncontent_id: [missing]</pre><div class="sequence-palette"><button class="sequence-card" data-field="email" type="button">creator_email</button><button class="sequence-card" data-field="content" type="button">content_id: VID-204</button><button class="sequence-card" data-field="password" type="button">password</button></div></div><div class="inspection-panel"><div class="activity-title">App response</div><pre id="response-copy">400 BAD REQUEST\nrequired field missing: content_id</pre><button class="primary-button" id="send-request" type="button" disabled>Send request again</button></div></div>`);
+        $$('[data-field]',root).forEach(button=>button.addEventListener('click',()=>{if(button.dataset.field!=='content'){setHint(button.dataset.field==='password'?'Never add a password to ordinary request data.':'The response names a different required field.','error');return;}$('#request-copy').textContent='POST /drafts\nplatform: instagram\ncaption: "Three ways to plan…"\ncontent_id: VID-204';$('#send-request').disabled=false;setHint('Required field inserted. Send the request again.','good');}));
+        $('#send-request').addEventListener('click',()=>{$('#response-copy').textContent='201 CREATED\ndraft_id: D-882\nstatus: saved_for_review';enableFinish();});wireFinish();
+      }
+      function renderMission12(root) {
+        const nodes=[['form','Creator form'],['save','Save information'],['draft','Create draft'],['review','Send for review'],['publish','Auto-publish'],['guess','Guess missing fields']],expected=['form','save','draft','review'],selected=[];let stable=false;
+        root.innerHTML=missionTemplate(missions[12],`<div class="build-track" id="build-track"><span class="muted">Build the four-step creator flow.</span></div><div class="node-palette">${nodes.map(node=>`<button class="node-chip" data-node="${node[0]}" type="button"><span>FLOW BLOCK</span>${node[1]}</button>`).join('')}</div><div class="sequence-tools"><button class="small-button" id="undo-node" type="button">Undo</button><button class="small-button" id="check-build" type="button">Check flow</button><button class="small-button" id="run-tests" type="button" disabled>Run 3 submissions</button></div><div class="test-console" id="test-console">SYSTEM: Waiting for a stable flow…</div>`);
+        const draw=()=>{$('#build-track').innerHTML=selected.length?selected.map(id=>`<div class="track-step">${nodes.find(node=>node[0]===id)[1]}</div>`).join(''):'<span class="muted">Build the four-step creator flow.</span>';$$('.node-chip',root).forEach(card=>card.classList.toggle('used',selected.includes(card.dataset.node)));};
+        $$('.node-chip',root).forEach(card=>card.addEventListener('click',()=>{if(selected.length<4&&!selected.includes(card.dataset.node)){selected.push(card.dataset.node);draw();}}));$('#undo-node').addEventListener('click',()=>{selected.pop();stable=false;$('#run-tests').disabled=true;draw();});
+        $('#check-build').addEventListener('click',()=>{if(selected.length!==4||!selected.every((id,index)=>id===expected[index])){setHint(selected.includes('publish')?'Auto-publishing removes the required review boundary.':selected.includes('guess')?'The workflow must stop on missing information, not invent it.':'Trace the flow from creator input to human review.','error');return;}stable=true;$('#run-tests').disabled=false;$('#test-console').textContent='BUILD: stable · three test submissions ready';setHint('Flow stable. Now test normal and difficult submissions.','good');});
+        $('#run-tests').addEventListener('click',()=>{if(!stable)return;$('#test-console').innerHTML='<div class="console-line pass">PASS · Complete submission → draft saved for review</div><div class="console-line pause">SAFE STOP · Missing transcript → creator asked to complete it</div><div class="console-line pause">SAFE STOP · Unsupported platform → operator notified</div>';enableFinish();});wireFinish();
+      }
+      function renderMission13(root) { renderSequence(root,missions[13],[['source','Source: approved transcript'],['task','Task: create three draft captions'],['rules','Rules: do not invent facts or promises'],['output','Output: platform, caption and source line']],['task','output','source','rules'],`<p class="activity-note">A missing block creates a visibly weaker result. Assemble all four in the order the AI should understand them.</p>`); }
+      function renderMission14(root) {
+        const defects=[['intro','Remove extra introduction text'],['platform','Add missing platform field'],['name','Rename “post_text” to “caption”'],['markdown','Remove markdown code wrapper'],['length','Shorten the excessive caption']];let fixed=0;
+        root.innerHTML=missionTemplate(missions[14],`<div class="inspect-layout"><div class="inspection-panel"><div class="activity-title">Broken AI output</div><pre id="broken-output">Here is your result!\n\`\`\`json\n{\n "post_text": "A very long caption…",\n "source_line": "00:42"\n}\n\`\`\`</pre></div><div class="inspect-list"><div class="activity-title">Data surgery</div>${defects.map(item=>`<button class="inspect-node" data-fix="${item[0]}" type="button">${item[1]}</button>`).join('')}</div></div>`);
+        $$('[data-fix]',root).forEach(button=>button.addEventListener('click',()=>{if(button.classList.contains('used'))return;button.classList.add('used');button.textContent=`✓ ${button.textContent}`;fixed++;$('#broken-output').textContent=`Repair progress: ${fixed}/5 defects fixed\n${fixed===5?'{\n "platform": "instagram",\n "caption": "Three clear planning steps.",\n "source_line": "00:42"\n}':'Continue removing unstable structure…'}`;if(fixed===5)enableFinish();else setHint(`${5-fixed} output defects remain.`);}));wireFinish();
+      }
+      function renderMission15(root) { renderClassification(root,missions[15],[['fact','“The creator plans content every Monday.”','supported'],['rewrite','“Planning early helps the creator stay consistent.”','rewrite'],['invented','“This method increased sales by 47% for 10,000 customers.”','unsupported']],[['supported','Supported'],['rewrite','Reasonable rewrite'],['unsupported','Unsupported']],`<div class="creator-message" style="margin-bottom:1rem"><span class="eyebrow mono">ORIGINAL TRANSCRIPT</span><blockquote style="font-size:1.35rem">“I plan my content every Monday because it helps me stay consistent.”</blockquote></div>`); }
+      function renderMission16(root) { renderSort(root,missions[16],[['save','Save a draft','auto',''],['story','Publish a sensitive personal story','review',''],['rename','Rename a file','auto',''],['refund','Send a refund promise','review','']],[['auto','Can continue automatically'],['review','Needs human review']]); }
+      function renderMission17(root) {
+        const steps=[['form','01 · Creator form','OUTPUT: submission received'],['load','02 · Load transcript','INPUT: video_url present\nOUTPUT: transcript = [empty]'],['ai','03 · Create drafts','ERROR: prompt requires transcript'],['save','04 · Save result','SKIPPED after AI error']];
+        root.innerHTML=missionTemplate(missions[17],`<div class="inspect-layout"><div class="inspect-list"><div class="activity-title">Execution steps</div>${steps.map(step=>`<button class="inspect-node" data-log="${step[0]}" type="button">${step[1]}</button>`).join('')}</div><div class="inspection-panel"><div class="activity-title">Input + output</div><pre id="log-copy">Open a step. Begin before the loud AI error.</pre><button class="primary-button" id="mark-break" type="button" hidden>Mark as first broken step</button></div></div>`);
+        $$('[data-log]',root).forEach(button=>button.addEventListener('click',()=>{const step=steps.find(item=>item[0]===button.dataset.log);$('#log-copy').textContent=step[2];$('#mark-break').hidden=false;$('#mark-break').dataset.step=step[0];setHint(step[0]==='ai'?'This is the loudest error, but inspect the input that arrived here.':'Compare this step’s output with the next step’s input.');}));
+        $('#mark-break').addEventListener('click',event=>{if(event.currentTarget.dataset.step!=='load'){setHint('The first break is where correct information first becomes missing or wrong.','error');return;}$('#log-copy').textContent+='\n\nFIRST BREAK CONFIRMED';enableFinish();});wireFinish();
+      }
+      function renderMission18(root) { renderSequence(root,missions[18],[['save','Save the error details'],['keep','Keep the failed item'],['notify','Notify the workflow owner'],['stop','Stop unsafe later actions']],['notify','stop','save','keep'],`<div class="brief-card"><span class="mono">CURRENT ERROR ROUTE</span><p>Failed action → ignore → content disappears</p></div>`); }
+      function renderMission19(root) {
+        root.innerHTML=missionTemplate(missions[19],`<div class="control-lab"><div class="control-panel"><div class="control-row"><label>Batch size <b id="batch-value">100</b></label><input id="batch" type="range" min="5" max="100" step="5" value="100"></div><div class="control-row"><label>Delay between batches <b id="delay-value">0s</b></label><input id="delay" type="range" min="0" max="5" step="1" value="0"></div><div class="control-row"><label>Maximum retry attempts <b id="retry-value">8</b></label><input id="retry" type="range" min="1" max="8" step="1" value="8"></div></div><div class="metric-panel"><span class="activity-title">Live traffic</span><div class="metric-number" id="traffic-score">100%</div><p id="traffic-copy">Requests are flooding the connected app. Reduce the burst and limit repeated attempts.</p></div></div>`);
+        const update=()=>{const batch=Number($('#batch').value),delay=Number($('#delay').value),retry=Number($('#retry').value);$('#batch-value').textContent=batch;$('#delay-value').textContent=`${delay}s`;$('#retry-value').textContent=retry;const risk=Math.min(100,Math.round(batch*.7+Math.max(0,3-delay)*10+retry*3));$('#traffic-score').textContent=`${risk}% risk`;const safe=batch<=20&&delay>=2&&retry<=3;$('#traffic-copy').textContent=safe?'Safe flow: small batches, breathing room and bounded retries.':'Still unsafe. Aim for batches of 20 or fewer, at least 2 seconds of delay and no more than 3 attempts.';if(safe)enableFinish();else setHint('Adjust the controls until speed no longer creates avoidable failures.');};['batch','delay','retry'].forEach(id=>$(`#${id}`).addEventListener('input',update));wireFinish();
+      }
+      function renderMission20(root) {
+        const protections=[['id','Unique content ID',true],['status','“Published” status check',true],['record','Record of completed actions',true],['wait','Random five-minute wait',false],['rewrite','Rewrite the caption again',false]];const selected=new Set();
+        root.innerHTML=missionTemplate(missions[20],`<div class="brief-card" style="margin-bottom:1rem"><span class="mono">RETRY HISTORY</span><p>POST-204 published at 10:04 · 10:05 · 10:07</p></div><div class="toggle-list">${protections.map(item=>`<button class="toggle-card" data-protection="${item[0]}" type="button">${item[1]}</button>`).join('')}</div>`);
+        $$('[data-protection]',root).forEach(button=>button.addEventListener('click',()=>{const id=button.dataset.protection;if(selected.has(id))selected.delete(id);else selected.add(id);button.classList.toggle('selected',selected.has(id));const wrong=[...selected].some(value=>!protections.find(item=>item[0]===value)[2]);const all=protections.filter(item=>item[2]).every(item=>selected.has(item[0]));if(wrong)setHint('That changes timing or content but does not prove the action already happened.','error');else if(all)enableFinish();else setHint('Install all three protections that recognise completed content.');}));wireFinish();
+      }
+      function renderMission21(root) {
+        const fields=[['password','Account password',true],['key','API key',true],['address','Customer home address',true],['notes','Private creator notes',true],['document','Full source document when one field is enough',true],['transcript','Approved transcript text',false],['platform','Target platform',false]],selected=new Set();
+        root.innerHTML=missionTemplate(missions[21],`<div class="toggle-list">${fields.map(field=>`<button class="toggle-card" data-field="${field[0]}" type="button">${field[1]}</button>`).join('')}</div><p class="activity-note">Select information to remove from the ordinary workflow. Keep only what the draft task needs.</p>`);
+        $$('[data-field]',root).forEach(button=>button.addEventListener('click',()=>{const id=button.dataset.field;if(selected.has(id))selected.delete(id);else selected.add(id);button.classList.toggle('selected',selected.has(id));const wrong=[...selected].some(value=>!fields.find(field=>field[0]===value)[2]);const all=fields.filter(field=>field[2]).every(field=>selected.has(field[0]));if(wrong)setHint('The workflow still needs that field to create the requested platform draft.','error');else if(all)enableFinish();else setHint(`${fields.filter(field=>field[2]&&!selected.has(field[0])).length} unnecessary data items remain.`);}));wireFinish();
+      }
+      function renderMission22(root) {
+        const moves=[['filter','Run simple filters before AI',true,22],['short','Send only the useful source section',true,18],['group','Group repeated items into one call',true,25],['each','Make one extra AI call for every item',false,-28],['exact','Use AI for exact status checks',false,-20]],selected=new Set();
+        root.innerHTML=missionTemplate(missions[22],`<div class="control-lab"><div class="toggle-list">${moves.map(move=>`<button class="toggle-card" data-move="${move[0]}" type="button">${move[1]}</button>`).join('')}</div><div class="metric-panel"><span class="activity-title">Estimated run cost</span><div class="metric-number" id="cost-meter">100 credits</div><p id="quality-meter">Quality: stable · Waste: high</p></div></div>`);
+        $$('[data-move]',root).forEach(button=>button.addEventListener('click',()=>{const id=button.dataset.move;if(selected.has(id))selected.delete(id);else selected.add(id);button.classList.toggle('selected',selected.has(id));let cost=100;moves.forEach(move=>{if(selected.has(move[0]))cost-=move[3];});cost=Math.max(10,cost);$('#cost-meter').textContent=`${cost} credits`;const bad=[...selected].some(value=>!moves.find(move=>move[0]===value)[2]);const all=moves.filter(move=>move[2]).every(move=>selected.has(move[0]));$('#quality-meter').textContent=bad?'Quality: unstable · An “optimisation” added waste':'Quality: stable · Waste falling';if(bad)setHint('That move increases calls or gives AI work a simple rule should handle.','error');else if(all)enableFinish();else setHint('Keep reducing waste without removing the useful result.');}));wireFinish();
+      }
+      function renderMission23(root) {
+        const tests=[['normal','Normal information','PASS · Draft saved for review'],['missing','Missing information','SAFE STOP · Ask creator for the missing field'],['long','Unexpectedly long text','CONTROLLED · Trim input and preserve source link'],['malformed','AI refusal or malformed output','RETRY ONCE · Then route to human review'],['offline','Disconnected destination app','SAVE + ALERT · Keep the draft for later delivery']];const run=new Set();
+        root.innerHTML=missionTemplate(missions[23],`<div class="inspect-layout"><div class="inspect-list"><div class="activity-title">Test cases</div>${tests.map(test=>`<button class="inspect-node" data-test="${test[0]}" type="button">${test[1]}</button>`).join('')}</div><div class="test-console" id="stress-console">LAB READY · Run every case before release.</div></div>`);
+        $$('[data-test]',root).forEach(button=>button.addEventListener('click',()=>{const test=tests.find(item=>item[0]===button.dataset.test);run.add(test[0]);button.classList.add('used');$('#stress-console').insertAdjacentHTML('beforeend',`<div class="console-line ${test[0]==='normal'?'pass':'pause'}">${test[1]} → ${test[2]}</div>`);if(run.size===tests.length)enableFinish();else setHint(`${tests.length-run.size} important cases remain.`);}));wireFinish();
+      }
+      function renderMission24(root) {
+        const nodes=[['source','Approved source'],['extract','Extract useful information'],['draft','Create platform drafts'],['check','Check accuracy'],['human','Request human approval'],['save','Save approved drafts'],['publish','Publish immediately'],['guess','Invent missing details']],expected=['source','extract','draft','check','human','save'],selected=[];
+        const requirements=[['rule','One ordinary rule-based step'],['ai','One controlled AI step'],['error','One error route'],['duplicate','Duplicate protection'],['cost','Cost limit'],['privacy','Safe data handling']],installed=new Set();let sequenceStable=false;
+        root.innerHTML=missionTemplate(missions[24],`<div class="build-track" id="final-track"><span class="muted">Build the final creator workflow.</span></div><div class="node-palette">${nodes.map(node=>`<button class="node-chip" data-final-node="${node[0]}" type="button"><span>CANVAS BLOCK</span>${node[1]}</button>`).join('')}</div><div class="sequence-tools"><button class="small-button" id="final-undo" type="button">Undo</button><button class="small-button" id="check-final" type="button">Check flow</button></div><div class="activity-title" style="margin-top:1.4rem">Install release requirements</div><div class="toggle-list">${requirements.map(item=>`<button class="toggle-card" data-requirement="${item[0]}" type="button">${item[1]}</button>`).join('')}</div><div class="result-strip"><div class="result-card"><span>JUDGMENT</span><strong id="score-judgment">—</strong></div><div class="result-card"><span>FLOW LOGIC</span><strong id="score-flow">—</strong></div><div class="result-card"><span>RELIABILITY</span><strong id="score-reliability">—</strong></div><div class="result-card"><span>SAFETY</span><strong id="score-safety">—</strong></div></div>`);
+        const draw=()=>{$('#final-track').innerHTML=selected.length?selected.map(id=>`<div class="track-step">${nodes.find(node=>node[0]===id)[1]}</div>`).join(''):'<span class="muted">Build the final creator workflow.</span>';$$('[data-final-node]',root).forEach(button=>button.classList.toggle('used',selected.includes(button.dataset.finalNode)));};
+        const evaluate=()=>{const allReq=requirements.every(item=>installed.has(item[0]));if(sequenceStable&&allReq){['judgment','flow','reliability','safety'].forEach(axis=>$(`#score-${axis}`).textContent='STABLE');enableFinish('Final rescue stable across judgment, flow logic, reliability and safety.');}else setHint(`${sequenceStable?'Flow stable':'Flow needs checking'} · ${requirements.length-installed.size} release requirements remain.`);};
+        $$('[data-final-node]',root).forEach(button=>button.addEventListener('click',()=>{if(selected.length<6&&!selected.includes(button.dataset.finalNode)){selected.push(button.dataset.finalNode);draw();}}));$('#final-undo').addEventListener('click',()=>{selected.pop();sequenceStable=false;draw();evaluate();});
+        $('#check-final').addEventListener('click',()=>{if(selected.length===6&&selected.every((id,index)=>id===expected[index])){sequenceStable=true;$('#score-flow').textContent='STABLE';setHint('Flow logic stable. Install every release requirement.','good');evaluate();}else setHint(selected.includes('publish')?'Publishing before approval breaks the human checkpoint.':selected.includes('guess')?'The final workflow cannot invent missing details.':'Trace the result from approved source to approved saved drafts.','error');});
+        $$('[data-requirement]',root).forEach(button=>button.addEventListener('click',()=>{const id=button.dataset.requirement;if(installed.has(id))installed.delete(id);else installed.add(id);button.classList.toggle('selected',installed.has(id));if(installed.has('rule')&&installed.has('ai'))$('#score-judgment').textContent='STABLE';if(installed.has('error')&&installed.has('duplicate'))$('#score-reliability').textContent='STABLE';if(installed.has('cost')&&installed.has('privacy'))$('#score-safety').textContent='STABLE';evaluate();}));wireFinish();
+      }
+
+      const renderers={1:renderMission1,2:renderMission2,3:renderMission3,4:renderMission4,5:renderMission5,6:renderMission6,7:renderMission7,8:renderMission8,9:renderMission9,10:renderMission10,11:renderMission11,12:renderMission12,13:renderMission13,14:renderMission14,15:renderMission15,16:renderMission16,17:renderMission17,18:renderMission18,19:renderMission19,20:renderMission20,21:renderMission21,22:renderMission22,23:renderMission23,24:renderMission24};
+      function openMission(id) {
+        const unlocked=id===1||state.completed.includes(id-1);if(!unlocked){showToast('Complete the previous mission first.');tone('error');return;}
+        currentMission=id;currentZone=zoneForMission(id);$('#mission-kicker').textContent=`MISSION ${String(id).padStart(2,'0')} / ZONE ${String(currentZone).padStart(2,'0')}`;renderers[id]($('#mission-content'));$('#mission-layer').classList.add('open');document.body.style.overflow='hidden';$('#close-mission').focus();
+      }
+      function closeMission() { $('#mission-layer').classList.remove('open');document.body.style.overflow='';$(`.mission-node[data-mission="${currentMission}"]`)?.focus(); }
+      function completeMission(id) { lastCompletedMission=id;if(!state.completed.includes(id)){state.completed.push(id);state.completed.sort((a,b)=>a-b);saveState();}tone('success');$('#completion-copy').textContent=missions[id].completion;$('#core-line').textContent=missions[id].core;$('#completion-modal').classList.add('open');$('#return-map').focus(); }
+      function showZoneComplete(zone) { const data=zones[zone];$('#zone-complete-kicker').textContent=zone<6?`ZONE ${String(zone).padStart(2,'0')} COMPLETE`:'ALL SIX ZONES COMPLETE';$('#zone-complete-title').textContent=data.completeTitle;$('#zone-complete-copy').textContent=data.completeCopy;$('#zone-outcome-line').textContent=data.outcome;$('#enter-next-zone').textContent=zone<6?'Enter the next zone':'Review the final map';$('#zone-complete-modal').classList.add('open');$('#enter-next-zone').focus(); }
+      function returnToMap() { $('#completion-modal').classList.remove('open');closeMission();renderMap();if(lastCompletedMission%4===0&&zoneComplete(zoneForMission(lastCompletedMission)))setTimeout(()=>showZoneComplete(zoneForMission(lastCompletedMission)),state.reduceMotion?10:450); }
+      function openModal(id){$(`#${id}`).classList.add('open');} function closeModal(id){$(`#${id}`).classList.remove('open');}
+
+      $$('.sound-toggle').forEach(button=>button.addEventListener('click',()=>{state.sound=!state.sound;saveState();syncSettings();tone('tap');}));
+      $$('.motion-toggle').forEach(button=>button.addEventListener('click',()=>{state.reduceMotion=!state.reduceMotion;saveState();syncSettings();showToast(state.reduceMotion?'Motion reduced.':'Full transitions restored.');}));
+      $$('[data-open-modal]').forEach(button=>button.addEventListener('click',()=>openModal(button.dataset.openModal)));$$('[data-close-modal]').forEach(button=>button.addEventListener('click',()=>closeModal(button.dataset.closeModal)));
+      $('#enter-core').addEventListener('click',startIntro);$('#preview-zones').addEventListener('click',()=>{startIntro();showToast('Six-zone course map ready.');});
+      $('#skip-intro').addEventListener('click',()=>{introTimers.forEach(clearTimeout);renderMap();pageTransition('zone-screen','Opening Zone 01');});$('#continue-zone').addEventListener('click',()=>{renderMap();pageTransition('zone-screen','Opening Zone 01');});
+      $('#zone-home').addEventListener('click',()=>pageTransition('home-screen','Returning to Core'));$('#close-mission').addEventListener('click',closeMission);
+      $('#zone-rail').addEventListener('click',event=>{const button=event.target.closest('[data-zone-target]');if(button)openZone(Number(button.dataset.zoneTarget));});
+      $('#map-deck').addEventListener('click',event=>{const button=event.target.closest('[data-mission]');if(button)openMission(Number(button.dataset.mission));});
+      $('#next-zone-gate').addEventListener('click',()=>{if(!zoneComplete(currentZone)){showToast(`${zoneMissionIds(currentZone).filter(id=>!state.completed.includes(id)).length} missions remain in this zone.`);tone('error');return;}if(currentZone<6)openZone(currentZone+1);else showZoneComplete(6);});
+      $('#return-map').addEventListener('click',returnToMap);$('#replay-mission').addEventListener('click',()=>{$('#completion-modal').classList.remove('open');openMission(lastCompletedMission);});
+      $('#enter-next-zone').addEventListener('click',()=>{closeModal('zone-complete-modal');if(currentZone<6)openZone(currentZone+1);else{currentZone=6;renderMap();}});$('#stay-current-zone').addEventListener('click',()=>closeModal('zone-complete-modal'));
+      document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;const modal=$('.modal-backdrop.open');if(modal){modal.classList.remove('open');return;}if($('#mission-layer').classList.contains('open'))closeMission();});
+
+      syncSettings();renderMap();
+      window.__AI_WORKFLOW_RESCUE__={openMission,renderMap,getState:()=>JSON.parse(JSON.stringify(state))};
     })();
   </script>
 </body>
