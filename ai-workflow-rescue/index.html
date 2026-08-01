@@ -1116,6 +1116,227 @@
       .scan-row p { grid-column:1/-1; }
       .result-strip { grid-template-columns:1fr; }
     }
+
+    /* ------------------------------------------------------------
+       VISUAL LEARNING + GUIDED RECOVERY
+       Brighter explanatory scenes, visible help and a richer backdrop.
+       ------------------------------------------------------------ */
+    body {
+      isolation:isolate;
+      background:#090b0d;
+    }
+    body::before,
+    body::after {
+      content:"";
+      position:fixed;
+      inset:-18%;
+      z-index:-1;
+      pointer-events:none;
+    }
+    body::before {
+      background:
+        radial-gradient(ellipse at 17% 23%, rgba(66,126,137,.34), transparent 34%),
+        radial-gradient(ellipse at 84% 17%, rgba(117,88,140,.23), transparent 30%),
+        radial-gradient(ellipse at 72% 78%, rgba(170,125,76,.18), transparent 34%),
+        radial-gradient(ellipse at 28% 84%, rgba(70,126,105,.16), transparent 30%);
+      filter:blur(42px);
+      animation:ambient-drift 22s ease-in-out infinite alternate;
+    }
+    body::after {
+      inset:0;
+      opacity:.38;
+      background:
+        linear-gradient(90deg,rgba(184,232,237,.04) 1px,transparent 1px),
+        linear-gradient(rgba(184,232,237,.03) 1px,transparent 1px),
+        radial-gradient(circle at 12% 18%,rgba(255,255,255,.55) 0 1px,transparent 1.8px),
+        radial-gradient(circle at 78% 32%,rgba(216,193,155,.48) 0 1px,transparent 1.8px),
+        radial-gradient(circle at 55% 74%,rgba(184,232,237,.45) 0 1px,transparent 1.8px);
+      background-size:88px 88px,88px 88px,310px 310px,410px 410px,360px 360px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.95),rgba(0,0,0,.28));
+    }
+    @keyframes ambient-drift {
+      from { transform:translate3d(-1.5%,-1%,0) scale(1); }
+      to { transform:translate3d(2%,1.5%,0) scale(1.06); }
+    }
+    #home-screen,
+    #intro-screen,
+    #zone-screen {
+      background-color:transparent !important;
+    }
+    #home-screen {
+      background:
+        radial-gradient(circle at 50% 38%,rgba(184,232,237,.11),transparent 31%),
+        linear-gradient(180deg,rgba(7,9,11,.48),rgba(7,8,9,.78)) !important;
+    }
+    #intro-screen {
+      background:
+        radial-gradient(circle at 50% 46%,rgba(184,232,237,.12),transparent 35%),
+        linear-gradient(145deg,rgba(8,10,11,.72),rgba(5,6,7,.86)) !important;
+    }
+    #zone-screen {
+      background:
+        radial-gradient(circle at 77% 19%,var(--zone-soft),transparent 31%),
+        radial-gradient(circle at 15% 82%,rgba(216,193,155,.065),transparent 30%),
+        linear-gradient(145deg,rgba(7,8,9,.74),rgba(10,12,13,.83) 58%,rgba(7,8,9,.8)) !important;
+    }
+    .mission-layer {
+      background:
+        radial-gradient(circle at 82% 14%,color-mix(in srgb,var(--zone-accent,var(--ion)) 10%,transparent),transparent 28%),
+        rgba(7,8,9,.89) !important;
+    }
+
+    .mission-brief-body {
+      grid-template-columns:1fr;
+      gap:1rem;
+    }
+    .mission-brief-body .brief-card {
+      min-height:0;
+      padding:1.15rem 1.25rem;
+      border-left:2px solid var(--zone-accent,var(--ion));
+    }
+    .mission-visual {
+      min-height:390px;
+      border-color:color-mix(in srgb,var(--zone-accent,var(--ion)) 28%,rgba(243,240,233,.12));
+      background:
+        radial-gradient(circle at 76% 20%,color-mix(in srgb,var(--zone-accent,var(--ion)) 24%,transparent),transparent 36%),
+        radial-gradient(circle at 14% 88%,rgba(216,193,155,.1),transparent 34%),
+        linear-gradient(145deg,rgba(23,29,31,.98),rgba(8,11,13,.99));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 24px 70px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.02);
+    }
+    .visual-explainer-head {
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:center;
+      gap:.85rem;
+      padding:1rem 1.15rem .8rem;
+      border-bottom:1px solid rgba(243,240,233,.09);
+      background:linear-gradient(90deg,color-mix(in srgb,var(--zone-accent,var(--ion)) 8%,transparent),transparent);
+    }
+    .visual-explainer-head span,
+    .visual-caption-label {
+      color:var(--zone-accent,var(--ion));
+      font:600 .52rem "Vselors Mono",monospace;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .visual-explainer-head strong {
+      color:#efeee9;
+      font:600 clamp(1rem,2vw,1.28rem) "Vselors Serif",serif;
+      letter-spacing:-.015em;
+    }
+    .visual-canvas {
+      position:relative;
+      padding:.45rem 1rem 0;
+    }
+    .mission-visual svg { height:275px; filter:drop-shadow(0 16px 28px rgba(0,0,0,.2)); }
+    .mission-visual figcaption {
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:start;
+      gap:.75rem;
+      min-height:52px;
+      padding:.85rem 1.1rem 1rem;
+      background:rgba(3,6,8,.38);
+      color:#c3c8c7;
+      font-size:.73rem;
+    }
+    .mission-visual figcaption::before { display:none; }
+    .scene-grid { stroke:rgba(243,240,233,.085); }
+    .scene-panel { fill:rgba(23,29,31,.97); stroke:rgba(243,240,233,.26); stroke-width:1.4; }
+    .scene-panel-soft { fill:color-mix(in srgb,var(--zone-accent,var(--ion)) 11%,rgba(13,17,18,.96)); stroke:color-mix(in srgb,var(--zone-accent,var(--ion)) 48%,transparent); stroke-width:1.5; }
+    .scene-text-small { fill:#c5cbca; }
+    .scene-text-tiny { fill:#a9b1b0; }
+
+    .mission-feedback {
+      min-height:48px;
+      margin-top:1rem;
+      padding:.85rem 1rem;
+      border:1px solid rgba(243,240,233,.09);
+      border-radius:13px;
+      background:rgba(7,10,11,.56);
+    }
+    .mission-feedback-label {
+      display:block;
+      margin-bottom:.28rem;
+      color:#7f8787;
+      font:600 .5rem "Vselors Mono",monospace;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+    }
+    .mission-hint { margin:0; min-height:1.2rem; }
+    .learning-support {
+      margin-top:.85rem;
+      border:1px solid rgba(216,193,155,.17);
+      border-radius:16px;
+      overflow:hidden;
+      background:linear-gradient(120deg,rgba(216,193,155,.055),rgba(11,14,15,.68));
+    }
+    .support-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:.9rem 1rem;
+    }
+    .support-head strong {
+      display:block;
+      margin-bottom:.18rem;
+      color:#e9e6de;
+      font:600 1.05rem "Vselors Serif",serif;
+    }
+    .support-head p { margin:0; color:#8f9696; font-size:.68rem; }
+    .support-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.5rem; }
+    .attempt-chip {
+      display:inline-flex;
+      align-items:center;
+      padding:.55rem .7rem;
+      border:1px solid rgba(243,240,233,.1);
+      border-radius:999px;
+      color:#999f9f;
+      font:600 .53rem "Vselors Mono",monospace;
+      letter-spacing:.06em;
+    }
+    .hint-copy,
+    .solution-panel {
+      border-top:1px solid rgba(243,240,233,.08);
+      padding:.9rem 1rem;
+      color:#bec3c2;
+      font-size:.73rem;
+      line-height:1.6;
+      white-space:pre-line;
+    }
+    .hint-copy[hidden],
+    .solution-panel[hidden],
+    #show-solution[hidden] { display:none; }
+    .solution-panel {
+      border-top-color:rgba(130,215,192,.22);
+      background:rgba(130,215,192,.045);
+      color:#d7e4df;
+    }
+    .solution-panel strong { color:#82d7c0; }
+    .reset-warning {
+      margin:1.1rem 0;
+      padding:1rem;
+      border:1px solid rgba(217,138,129,.18);
+      border-radius:14px;
+      background:rgba(217,138,129,.045);
+      color:#bfc3c1;
+      font-size:.76rem;
+      line-height:1.6;
+    }
+
+    @media (max-width:680px) {
+      .mission-visual { min-height:320px; }
+      .mission-visual svg { height:220px; }
+      .visual-explainer-head { grid-template-columns:1fr; gap:.35rem; }
+      .mission-visual figcaption { grid-template-columns:1fr; gap:.3rem; }
+      .support-head { align-items:flex-start; flex-direction:column; }
+      .support-actions { justify-content:flex-start; width:100%; }
+      .support-actions .small-button { flex:1; }
+      .header-actions .reset-progress { display:none; }
+    }
   </style>
 </head>
 <body>
@@ -1159,6 +1380,7 @@
           <div class="home-secondary">
             <button class="small-button" type="button" data-open-modal="how-modal">How it works</button>
             <button class="small-button" type="button" id="preview-zones">View the course map</button>
+            <button class="small-button reset-progress" type="button">Start again</button>
           </div>
         </div>
       </div>
@@ -1204,6 +1426,7 @@
           <div class="header-actions">
             <button class="utility-button sound-toggle" type="button" aria-pressed="false">Sound off</button>
             <button class="utility-button motion-toggle" type="button" aria-pressed="false">Motion auto</button>
+            <button class="utility-button reset-progress" type="button">Start again</button>
             <div class="progress-cluster">
               <div class="progress-copy"><strong>Course progress</strong><span id="progress-label">0 of 24 complete</span></div>
               <div class="progress-ring" id="progress-ring" style="--progress:0%"><span id="progress-percent">0%</span></div>
@@ -1274,6 +1497,16 @@
         <div class="how-step"><b>03</b><div><strong>Keep the core rule</strong><span>Every mission ends with one clear line you can reuse in real workflows.</span></div></div>
       </div>
       <button class="primary-button" type="button" data-close-modal="how-modal">Understood</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="reset-modal" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <div class="modal-card">
+      <div class="eyebrow mono">FULL EXPERIENCE RESET</div>
+      <h2 id="reset-title">Start from the beginning?</h2>
+      <p>This returns AI Workflow Rescue to its original opening screen.</p>
+      <div class="reset-warning">All 24 mission completions, zone unlocks, saved position, sound choice and motion choice on this device will be removed. This cannot be undone.</div>
+      <div class="modal-actions"><button class="primary-button" type="button" id="confirm-reset">Reset everything</button><button class="ghost-button" type="button" data-close-modal="reset-modal">Keep my progress</button></div>
     </div>
   </div>
 
@@ -1934,6 +2167,33 @@
         24:{ title:'The Final Rescue', format:'Blank-canvas capstone', question:false, subtitle:'Build and rescue a complete creator workflow using every major skill.', brief:'Construct the final flow and install all six safety requirements.', core:'Core rule: A responsible workflow combines judgment, flow logic, reliability and safety.', completion:'You completed the final rescue with control at every critical point.' }
       };
 
+      const missionHelp = {
+        1: { hints:['Ignore the tool names. Read only what the creator repeats and what result they want.','The creator wants drafts to review—not automatic publishing.'], solution:'Remove every tool card. The revealed need is: approved video → three draft posts → human review.' },
+        2: { hints:['Ask whether the task is predictable, language-based or sensitive.','Fixed moves use rules; rewriting uses AI; public judgment stays human.'], solution:'Simple rules: move approved caption; rename files by date. AI assistance: rewrite transcript. Human: sensitive story decision; opinion check.' },
+        3: { hints:['Choose one result that can be checked today.','Keep the creator’s review before anything becomes public.'], solution:'Choose “Three draft captions saved for review.”' },
+        4: { hints:['Begin with the event that starts the flow.','Information must arrive before work can happen.'], solution:'Approved transcript added → Transcript content → Create three platform drafts → Save drafts for review.' },
+        5: { hints:['Match fields by meaning, not by their position.','A transcript is source material; an email is a notification recipient.'], solution:'Video title → Content title; Transcript → Source material; Instagram → Target platform; Draft → Review status; Creator email → Notification recipient.' },
+        6: { hints:['Only the exact Approved value should continue.','Missing and differently capitalised values should stop safely.'], solution:'Approved → Continue; Needs Changes → Return for editing; [empty] → Stop + alert; lowercase approved → Stop + alert.' },
+        7: { hints:['Open the bundle before touching individual ideas.','Combine only after every separate draft exists.'], solution:'Open bundle → Process each idea separately → Create one draft per idea → Combine into one review document.' },
+        8: { hints:['Ask whether the value is useful after this run ends.','A secret uses protected storage, never an ordinary data area.'], solution:'This run: caption draft, temporary API response, processing counter. Later: brand rules, approval status. Vault: secret access key.' },
+        9: { hints:['Inspect what is being exported, not only what a node uses.','A key that appears in a spreadsheet column is exposed.'], solution:'Open Spreadsheet export, identify api_key=sk-live-82A…, then move the exposed key to the protected credential vault.' },
+        10:{ hints:['A successful test address is separate from the live address.','Check both workflow activation and the address used by the creator form.'], solution:'Publish the workflow and connect the creator form to the production address.' },
+        11:{ hints:['The response tells you the exact missing field.','Do not add unrelated personal or secret data.'], solution:'Insert content_id: VID-204, then send the request again.' },
+        12:{ hints:['The creator input must be saved before AI creates anything.','The final action is review—not automatic publishing.'], solution:'Creator form → Save information → Create draft → Send for review. Then run all three submissions.' },
+        13:{ hints:['A complete brief begins with the evidence the AI may use.','Rules belong before the requested output shape.'], solution:'Source: approved transcript → Task: create three drafts → Rules: no invented facts or promises → Output: platform, caption, source line.' },
+        14:{ hints:['Remove anything that makes the data shape change between runs.','Check the field name, missing field, wrapper and length.'], solution:'Remove intro text; add platform; rename post_text to caption; remove markdown wrapper; shorten the caption.' },
+        15:{ hints:['Compare every claim directly with the original sentence.','A precise percentage with no source evidence is invented.'], solution:'Monday planning = Supported. Planning early helps consistency = Reasonable rewrite. 47% sales for 10,000 customers = Unsupported.' },
+        16:{ hints:['Public, sensitive or promise-making actions need a person.','Private mechanical actions can usually continue automatically.'], solution:'Automatic: save a draft; rename a file. Human review: publish a sensitive story; send a refund promise.' },
+        17:{ hints:['The loud error is not always the first error.','Find where a correct value first becomes empty.'], solution:'Mark Step 02 — Load transcript as the first broken step.' },
+        18:{ hints:['Preserve evidence before notifying anyone.','The route should end by stopping unsafe later actions.'], solution:'Save error details → Keep failed item → Notify workflow owner → Stop unsafe later actions.' },
+        19:{ hints:['Reduce how many requests arrive at once.','Add breathing room and cap repeated attempts.'], solution:'Batch size 20 or fewer; delay at least 2 seconds; retry attempts no more than 3.' },
+        20:{ hints:['The workflow needs proof that this exact item already ran.','Timing changes do not create duplicate protection.'], solution:'Select Unique content ID, “Published” status check and Record of completed actions.' },
+        21:{ hints:['Keep only information needed to create the platform draft.','Passwords, keys and unrelated personal details must not travel.'], solution:'Remove password, API key, home address, private notes and the full document. Keep approved transcript and target platform.' },
+        22:{ hints:['Let cheap rules remove work before AI is called.','Shorten and group the useful inputs.'], solution:'Select: run simple filters before AI; send only the useful source section; group repeated items into one call.' },
+        23:{ hints:['A release test needs more than the normal case.','Run every case until each has a safe outcome.'], solution:'Run Normal, Missing, Unexpectedly long, Malformed/refusal and Disconnected app cases.' },
+        24:{ hints:['Build the reviewed path before adding safeguards.','The workflow ends with saved approved drafts, not instant publishing.'], solution:'Approved source → Extract useful information → Create platform drafts → Check accuracy → Request human approval → Save approved drafts. Install all six release requirements.' }
+      };
+
       const defaultState = {
         completed: [], sound: false,
         reduceMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -1945,6 +2205,7 @@
       let currentZone = Number(state.currentZone) || 1;
       let audioContext = null;
       let introTimers = [];
+      let missionAssist = { attempts:0, hintIndex:0, solutionShown:false };
 
       function $(selector, root=document) { return root.querySelector(selector); }
       function $$(selector, root=document) { return [...root.querySelectorAll(selector)]; }
@@ -2173,15 +2434,54 @@
           }
         };
         const scene=frames[id] || frames[1];
-        return `<figure class="mission-visual" aria-labelledby="scene-title-${id} scene-desc-${id}"><svg viewBox="0 0 640 210" role="img"><title id="scene-title-${id}">${scene.title}</title><desc id="scene-desc-${id}">${scene.desc}</desc><defs><pattern id="scene-grid-${id}" width="28" height="28" patternUnits="userSpaceOnUse"><path class="scene-grid" d="M28 0H0V28" fill="none"/></pattern></defs><rect width="640" height="210" fill="url(#scene-grid-${id})"/>${scene.art}</svg><figcaption>${scene.caption}</figcaption></figure>`;
+        return `<figure class="mission-visual" aria-labelledby="scene-title-${id} scene-desc-${id}"><div class="visual-explainer-head"><span>Visual explainer</span><strong id="scene-title-${id}">${scene.title}</strong></div><div class="visual-canvas"><svg viewBox="0 0 640 210" role="img"><title>${scene.title}</title><desc id="scene-desc-${id}">${scene.desc}</desc><defs><pattern id="scene-grid-${id}" width="28" height="28" patternUnits="userSpaceOnUse"><path class="scene-grid" d="M28 0H0V28" fill="none"/></pattern></defs><rect width="640" height="210" fill="url(#scene-grid-${id})"/>${scene.art}</svg></div><figcaption><span class="visual-caption-label">Why it matters</span><span>${scene.caption}</span></figcaption></figure>`;
       }
 
       function missionTemplate(mission,workspace) {
-        return `<div class="mission-brief"><div class="mission-brief-intro"><div class="eyebrow mono">${mission.question?'DECISION REQUIRED':'SYSTEM PROBLEM DETECTED'}</div><h2 id="mission-title">${mission.title}</h2><p>${mission.subtitle}</p></div><div class="mission-brief-body">${missionVisual(currentMission)}<div class="brief-card"><span class="mono">YOUR TASK · ${mission.format}</span><p>${mission.brief}</p></div></div></div><div class="mission-workspace">${workspace}<div class="mission-hint" id="mission-hint" role="status" aria-live="polite"></div></div><div class="mission-footer"><p>No lives. No timer. Every wrong move shows a real consequence.</p><button class="primary-button" id="finish-mission" type="button" disabled>Stabilise mission</button></div>`;
+        return `<div class="mission-brief"><div class="mission-brief-intro"><div class="eyebrow mono">${mission.question?'DECISION REQUIRED':'SYSTEM PROBLEM DETECTED'}</div><h2 id="mission-title">${mission.title}</h2><p>${mission.subtitle}</p></div><div class="mission-brief-body">${missionVisual(currentMission)}<div class="brief-card"><span class="mono">YOUR TASK · ${mission.format}</span><p>${mission.brief}</p></div></div></div><div class="mission-workspace">${workspace}<div class="mission-feedback"><span class="mission-feedback-label">Live feedback</span><div class="mission-hint" id="mission-hint" role="status" aria-live="polite">Make your first move. The system will explain what changes.</div></div><aside class="learning-support" aria-label="Mission help"><div class="support-head"><div><strong>Hint section</strong><p>Use a nudge first. The exact solution appears after five wrong attempts.</p></div><div class="support-actions"><span class="attempt-chip" id="attempt-count">0 / 5 misses</span><button class="small-button" id="reveal-hint" type="button">Show hint</button><button class="small-button" id="show-solution" type="button" hidden>Show solution</button></div></div><div class="hint-copy" id="hint-copy" hidden></div><div class="solution-panel" id="solution-panel" hidden><strong>Exact solution</strong><br><span id="solution-copy"></span></div></aside></div><div class="mission-footer"><p>No lives. No timer. After five wrong attempts, you can reveal the answer and apply it yourself.</p><button class="primary-button" id="finish-mission" type="button" disabled>Stabilise mission</button></div>`;
       }
-      function setHint(text,kind='hint') { const hint=$('#mission-hint'); if(!hint)return; hint.textContent=text; hint.style.color=kind==='good'?'var(--success)':kind==='error'?'var(--danger)':'var(--amber)'; tone(kind==='good'?'success':kind==='error'?'error':'tap'); }
+      function syncMissionAssist() {
+        const count=$('#attempt-count'), solutionButton=$('#show-solution');
+        if(count) count.textContent=`${Math.min(missionAssist.attempts,5)} / 5 misses`;
+        if(solutionButton) solutionButton.hidden=missionAssist.attempts<5;
+      }
+      function revealMissionHint() {
+        const help=missionHelp[currentMission], copy=$('#hint-copy');
+        if(!help||!copy)return;
+        const index=Math.min(missionAssist.hintIndex,help.hints.length-1);
+        copy.textContent=`Hint ${index+1}: ${help.hints[index]}`;
+        copy.hidden=false;
+        missionAssist.hintIndex=Math.min(missionAssist.hintIndex+1,help.hints.length-1);
+        const button=$('#reveal-hint');
+        if(button&&help.hints.length>1)button.textContent=index===0?'Next hint':'Hint opened';
+        tone('tap');
+      }
+      function revealMissionSolution() {
+        const help=missionHelp[currentMission], panel=$('#solution-panel'), copy=$('#solution-copy'), button=$('#show-solution');
+        if(!help||!panel||!copy)return;
+        panel.hidden=false; copy.textContent=help.solution; missionAssist.solutionShown=true;
+        if(button){button.disabled=true;button.textContent='Solution shown';}
+        setHint('Solution revealed. Apply it once yourself to stabilise the mission.','hint');
+        panel.scrollIntoView({behavior:state.reduceMotion?'auto':'smooth',block:'nearest'});
+      }
+      function setHint(text,kind='hint') {
+        const hint=$('#mission-hint'); if(!hint)return;
+        hint.textContent=text;
+        hint.style.color=kind==='good'?'var(--success)':kind==='error'?'var(--danger)':'var(--amber)';
+        if(kind==='error'){
+          missionAssist.attempts++;
+          syncMissionAssist();
+          if(missionAssist.attempts===5)showToast('Solution unlocked. You can reveal the exact answer below.');
+        }
+        tone(kind==='good'?'success':kind==='error'?'error':'tap');
+      }
       function enableFinish(message='Workflow stable. Lock in what you learned.') { const button=$('#finish-mission'); if(button)button.disabled=false; setHint(message,'good'); }
-      function wireFinish() { $('#finish-mission').addEventListener('click',()=>completeMission(currentMission)); }
+      function wireFinish() {
+        $('#finish-mission').addEventListener('click',()=>completeMission(currentMission));
+        $('#reveal-hint')?.addEventListener('click',revealMissionHint);
+        $('#show-solution')?.addEventListener('click',revealMissionSolution);
+        syncMissionAssist();
+      }
 
       function renderSequence(root,mission,steps,order,lead='') {
         const chosen=[];
@@ -2230,7 +2530,7 @@
       function renderMission9(root) {
         const nodes=[['form','Creator form','Fields: title, transcript, platform'],['ai','AI draft step','Uses protected credential: CRED_AI_01'],['sheet','Spreadsheet export','Columns include title, status, api_key=sk-live-82A…'],['notify','Review notification','Recipient: creator@example.com']];
         root.innerHTML=missionTemplate(missions[9],`<div class="inspect-layout"><div class="inspect-list"><div class="activity-title">Inspect connections</div>${nodes.map(node=>`<button class="inspect-node ${node[0]==='sheet'?'alert':''}" data-inspect="${node[0]}" type="button">${node[1]}</button>`).join('')}</div><div class="inspection-panel"><div class="activity-title">Connection contents</div><pre id="inspection-copy">Select a connection to inspect what it carries.</pre><button class="primary-button" id="secure-key" type="button" hidden>Move exposed key to vault</button></div></div>`);
-        $$('.inspect-node',root).forEach(button=>button.addEventListener('click',()=>{const node=nodes.find(item=>item[0]===button.dataset.inspect);$('#inspection-copy').textContent=node[2];$('#secure-key').hidden=node[0]!=='sheet';if(node[0]==='sheet')setHint('Risk found: the private key is being exported as ordinary data.','error');else setHint('This connection does not expose the key. Keep inspecting.');}));
+        $$('.inspect-node',root).forEach(button=>button.addEventListener('click',()=>{const node=nodes.find(item=>item[0]===button.dataset.inspect);$('#inspection-copy').textContent=node[2];$('#secure-key').hidden=node[0]!=='sheet';if(node[0]==='sheet')setHint('Risk found: the private key is being exported as ordinary data.','hint');else setHint('This connection does not expose the key. Keep inspecting.');}));
         $('#secure-key').addEventListener('click',()=>{$('#inspection-copy').textContent='api_key → PROTECTED CREDENTIAL VAULT\nSpreadsheet export → key removed';$('#secure-key').hidden=true;enableFinish('Credential secured. The workflow can use the key without displaying or exporting it.');});wireFinish();
       }
       function renderMission10(root) {
@@ -2269,7 +2569,7 @@
       function renderMission18(root) { renderSequence(root,missions[18],[['save','Save the error details'],['keep','Keep the failed item'],['notify','Notify the workflow owner'],['stop','Stop unsafe later actions']],['notify','stop','save','keep'],`<div class="brief-card"><span class="mono">CURRENT ERROR ROUTE</span><p>Failed action → ignore → content disappears</p></div>`); }
       function renderMission19(root) {
         root.innerHTML=missionTemplate(missions[19],`<div class="control-lab"><div class="control-panel"><div class="control-row"><label>Batch size <b id="batch-value">100</b></label><input id="batch" type="range" min="5" max="100" step="5" value="100"></div><div class="control-row"><label>Delay between batches <b id="delay-value">0s</b></label><input id="delay" type="range" min="0" max="5" step="1" value="0"></div><div class="control-row"><label>Maximum retry attempts <b id="retry-value">8</b></label><input id="retry" type="range" min="1" max="8" step="1" value="8"></div></div><div class="metric-panel"><span class="activity-title">Live traffic</span><div class="metric-number" id="traffic-score">100%</div><p id="traffic-copy">Requests are flooding the connected app. Reduce the burst and limit repeated attempts.</p></div></div>`);
-        const update=()=>{const batch=Number($('#batch').value),delay=Number($('#delay').value),retry=Number($('#retry').value);$('#batch-value').textContent=batch;$('#delay-value').textContent=`${delay}s`;$('#retry-value').textContent=retry;const risk=Math.min(100,Math.round(batch*.7+Math.max(0,3-delay)*10+retry*3));$('#traffic-score').textContent=`${risk}% risk`;const safe=batch<=20&&delay>=2&&retry<=3;$('#traffic-copy').textContent=safe?'Safe flow: small batches, breathing room and bounded retries.':'Still unsafe. Aim for batches of 20 or fewer, at least 2 seconds of delay and no more than 3 attempts.';if(safe)enableFinish();else setHint('Adjust the controls until speed no longer creates avoidable failures.');};['batch','delay','retry'].forEach(id=>$(`#${id}`).addEventListener('input',update));wireFinish();
+        const update=(countAttempt=false)=>{const batch=Number($('#batch').value),delay=Number($('#delay').value),retry=Number($('#retry').value);$('#batch-value').textContent=batch;$('#delay-value').textContent=`${delay}s`;$('#retry-value').textContent=retry;const risk=Math.min(100,Math.round(batch*.7+Math.max(0,3-delay)*10+retry*3));$('#traffic-score').textContent=`${risk}% risk`;const safe=batch<=20&&delay>=2&&retry<=3;$('#traffic-copy').textContent=safe?'Safe flow: small batches, breathing room and bounded retries.':'Still unsafe. Reduce the burst, add delay and limit retries.';if(safe)enableFinish();else setHint('The request pattern is still unsafe. Adjust all three controls.',countAttempt?'error':'hint');};['batch','delay','retry'].forEach(id=>{$(`#${id}`).addEventListener('input',()=>update(false));$(`#${id}`).addEventListener('change',()=>update(true));});wireFinish();
       }
       function renderMission20(root) {
         const protections=[['id','Unique content ID',true],['status','“Published” status check',true],['record','Record of completed actions',true],['wait','Random five-minute wait',false],['rewrite','Rewrite the caption again',false]];const selected=new Set();
@@ -2305,17 +2605,22 @@
       const renderers={1:renderMission1,2:renderMission2,3:renderMission3,4:renderMission4,5:renderMission5,6:renderMission6,7:renderMission7,8:renderMission8,9:renderMission9,10:renderMission10,11:renderMission11,12:renderMission12,13:renderMission13,14:renderMission14,15:renderMission15,16:renderMission16,17:renderMission17,18:renderMission18,19:renderMission19,20:renderMission20,21:renderMission21,22:renderMission22,23:renderMission23,24:renderMission24};
       function openMission(id) {
         const unlocked=id===1||state.completed.includes(id-1);if(!unlocked){showToast('Complete the previous mission first.');tone('error');return;}
-        currentMission=id;currentZone=zoneForMission(id);$('#mission-kicker').textContent=`MISSION ${String(id).padStart(2,'0')} / ZONE ${String(currentZone).padStart(2,'0')}`;renderers[id]($('#mission-content'));$('#mission-layer').classList.add('open');document.body.style.overflow='hidden';$('#close-mission').focus();
+        currentMission=id;currentZone=zoneForMission(id);missionAssist={attempts:0,hintIndex:0,solutionShown:false};$('#mission-kicker').textContent=`MISSION ${String(id).padStart(2,'0')} / ZONE ${String(currentZone).padStart(2,'0')}`;renderers[id]($('#mission-content'));$('#mission-layer').classList.add('open');document.body.style.overflow='hidden';$('#close-mission').focus();
       }
       function closeMission() { $('#mission-layer').classList.remove('open');document.body.style.overflow='';$(`.mission-node[data-mission="${currentMission}"]`)?.focus(); }
       function completeMission(id) { lastCompletedMission=id;if(!state.completed.includes(id)){state.completed.push(id);state.completed.sort((a,b)=>a-b);saveState();}tone('success');$('#completion-copy').textContent=missions[id].completion;$('#core-line').textContent=missions[id].core;$('#completion-modal').classList.add('open');$('#return-map').focus(); }
       function showZoneComplete(zone) { const data=zones[zone];$('#zone-complete-kicker').textContent=zone<6?`ZONE ${String(zone).padStart(2,'0')} COMPLETE`:'ALL SIX ZONES COMPLETE';$('#zone-complete-title').textContent=data.completeTitle;$('#zone-complete-copy').textContent=data.completeCopy;$('#zone-outcome-line').textContent=data.outcome;$('#enter-next-zone').textContent=zone<6?'Enter the next zone':'Review the final map';$('#zone-complete-modal').classList.add('open');$('#enter-next-zone').focus(); }
       function returnToMap() { $('#completion-modal').classList.remove('open');closeMission();renderMap();if(lastCompletedMission%4===0&&zoneComplete(zoneForMission(lastCompletedMission)))setTimeout(()=>showZoneComplete(zoneForMission(lastCompletedMission)),state.reduceMotion?10:450); }
       function openModal(id){$(`#${id}`).classList.add('open');} function closeModal(id){$(`#${id}`).classList.remove('open');}
+      function resetExperience() {
+        [CONFIG.storageKey,...CONFIG.legacyStorageKeys].forEach(key=>localStorage.removeItem(key));
+        window.location.reload();
+      }
 
       $$('.sound-toggle').forEach(button=>button.addEventListener('click',()=>{state.sound=!state.sound;saveState();syncSettings();tone('tap');}));
       $$('.motion-toggle').forEach(button=>button.addEventListener('click',()=>{state.reduceMotion=!state.reduceMotion;saveState();syncSettings();showToast(state.reduceMotion?'Motion reduced.':'Full transitions restored.');}));
       $$('[data-open-modal]').forEach(button=>button.addEventListener('click',()=>openModal(button.dataset.openModal)));$$('[data-close-modal]').forEach(button=>button.addEventListener('click',()=>closeModal(button.dataset.closeModal)));
+      $$('.reset-progress').forEach(button=>button.addEventListener('click',()=>openModal('reset-modal')));$('#confirm-reset').addEventListener('click',resetExperience);
       $('#enter-core').addEventListener('click',startIntro);$('#preview-zones').addEventListener('click',()=>{startIntro();showToast('Six-zone course map ready.');});
       $('#skip-intro').addEventListener('click',()=>{introTimers.forEach(clearTimeout);renderMap();pageTransition('zone-screen','Opening Zone 01');});$('#continue-zone').addEventListener('click',()=>{renderMap();pageTransition('zone-screen','Opening Zone 01');});
       $('#zone-home').addEventListener('click',()=>pageTransition('home-screen','Returning to Core'));$('#close-mission').addEventListener('click',closeMission);
