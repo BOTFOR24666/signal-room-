@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#071011" />
+    <meta name="description" content="The Signal Room — an interactive DM conversation adventure." />
+    <title>The Signal Room</title>
+    <base href="/signal-room-/" />
+    <script>
+      // Whop opens experience apps on a dynamic route. GitHub Pages serves
+      // this fallback for that route; normalize it before the app starts.
+      if (location.pathname !== "/signal-room-/") {
+        history.replaceState(null, "", "/signal-room-/" + location.search + location.hash);
+      }
+    </script>
+    <script type="module" crossorigin src="/signal-room-/assets/index-umLrDNqv.js"></script>
+    <link rel="stylesheet" crossorigin href="/signal-room-/assets/index-BWpOFRo6.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
